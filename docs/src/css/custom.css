@@ -1,30 +1,239 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Modern, classy design system
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Color palette - Sophisticated and modern */
+  --ifm-color-primary: #1a73e8;
+  --ifm-color-primary-dark: #1557b0;
+  --ifm-color-primary-darker: #1251a3;
+  --ifm-color-primary-darkest: #0f4287;
+  --ifm-color-primary-light: #4b8ef1;
+  --ifm-color-primary-lighter: #5c9af3;
+  --ifm-color-primary-lightest: #8ab4f8;
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --ifm-heading-font-weight: 700;
+  --ifm-font-weight-semibold: 600;
+  --ifm-line-height-base: 1.7;
+
+  /* Spacing and layout */
+  --ifm-spacing-vertical: 2rem;
+  --ifm-global-radius: 8px;
+
+  /* Code blocks */
+  --ifm-code-font-size: 0.9em;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --ifm-transition-fast: 150ms;
+  --ifm-transition-slow: 300ms;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #8ab4f8;
+  --ifm-color-primary-dark: #6ba0f6;
+  --ifm-color-primary-darker: #5c96f5;
+  --ifm-color-primary-darkest: #2e78f2;
+  --ifm-color-primary-light: #a9c5fb;
+  --ifm-color-primary-lighter: #b8cffb;
+  --ifm-color-primary-lightest: #e5edfd;
+
+  --ifm-background-color: #0d1117;
+  --ifm-background-surface-color: #161b22;
+  --ifm-navbar-background-color: rgba(13, 17, 23, 0.95);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Modern hero section */
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, #1a1f36 0%, #0d1117 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(138, 180, 248, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Button styles */
+.button {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  transition: all var(--ifm-transition-fast) ease;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.button--primary {
+  background: white;
+  color: #1a73e8;
+}
+
+.button--primary:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1557b0;
+}
+
+.button--secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.button--secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+/* Card styles for features */
+.card {
+  height: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: all var(--ifm-transition-slow) ease;
+  background: var(--ifm-card-background-color);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--ifm-color-primary);
+}
+
+/* Navbar enhancements */
+.navbar {
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Increase logo size and fix alignment */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.navbar__items {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__item {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 996px) {
+  .navbar__logo img {
+    height: 40px;
+  }
+}
+
+/* Clean section spacing */
+.container {
+  max-width: 1200px;
+}
+
+/* Smooth scrolling with snap effect */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Only homepage sections should snap */
+body:has(.hero) {
+  scroll-snap-type: y mandatory;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+}
+
+/* Group footer with the last section */
+.footer {
+  background-color: #ffffff;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  padding: 1.5rem 0;
+  scroll-snap-align: none;
+  position: relative;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme='dark'] .footer {
+  background-color: #0d1117;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer__copyright {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
 }
