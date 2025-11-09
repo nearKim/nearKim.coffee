@@ -252,6 +252,6 @@ Try these extensions:
 
 | Previous | Current | Next |
 |----------|---------|------|
-| [← Problems](./problems.md) | **Implementation** | <!-- [Next Topic →](../XX-next-topic/index.md) --> |
+| [← Problems](problems.md) | **Implementation** | <!-- [Next Topic →](../XX-next-topic/index.md) --> |
 
-**Current Topic:** Topic Name → [Overview](./index.md) • [Problems](./problems.md) • **Implementation**
+**Current Topic:** Topic Name → [Overview](docs/docs/ml-codex/01-foundations/template/index.md) • [Problems](problems.md) • **Implementation**

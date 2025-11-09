@@ -196,4 +196,4 @@ Detailed solution to the challenge problem...
 
 | Previous | Current | Next |
 |----------|---------|------|
-| [← Overview](./index.md) | **Problems & Solutions** | [Implementation →](./implementation.md) |
+| [← Overview](docs/docs/ml-codex/01-foundations/template/index.md) | **Problems & Solutions** | [Implementation →](implementation.md) |

@@ -97,8 +97,8 @@ Watch out for this common pitfall.
 
 ## Next Steps
 
-- [Practice Problems →](./problems.md)
-- [Python Implementation →](./implementation.md)
+- [Practice Problems →](problems.md)
+- [Python Implementation →](implementation.md)
 <!-- - [Next Topic →](../XX-next-topic/index.md) -->
 
 ---
