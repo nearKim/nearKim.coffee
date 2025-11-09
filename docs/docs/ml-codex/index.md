@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: "Machine Learning Codex"
+title: "Overview"
 description: "A comprehensive encyclopedia of ML and DL knowledge"
 ---
 
