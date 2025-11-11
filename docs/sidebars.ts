@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
                   label: 'Section 1: Core Linear System Theory',
                   collapsed: true,
                   items: [
+                    'ml-codex/foundations/linear-algebra/core-linear-system-theory/index',
                     'ml-codex/foundations/linear-algebra/core-linear-system-theory/vector-spaces-overview',
                     'ml-codex/foundations/linear-algebra/core-linear-system-theory/vector-spaces-deepdive',
                     'ml-codex/foundations/linear-algebra/core-linear-system-theory/linear-transformations-overview',
