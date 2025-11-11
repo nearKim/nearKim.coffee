@@ -104,12 +104,12 @@ const HeroSection: React.FC = () => {
   }, []);
 
   const handleResumeDownload = useCallback(
-    () => downloadFile(files.resumeUrl, 'resume.pdf'),
+    () => downloadFile(files.resumeUrl, 'InKeunKim_Resume.pdf'),
     []
   );
 
   const handlePortfolioDownload = useCallback(
-    () => downloadFile(files.portfolioUrl, 'portfolio.pdf'),
+    () => downloadFile(files.portfolioUrl, 'InKeunKim_Portfolio.pdf'),
     []
   );
 
