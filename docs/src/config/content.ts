@@ -17,9 +17,18 @@ export const socialLinks = [
 ];
 
 export const technicalInterests = [
-  'Systems for AI: Building the infrastructure that trains, deploys, and serves ML models at scale',
-  'Robust Software Engineering: From SOLID principles to functional programming—crafting maintainable code that accelerates team velocity',
-  'Real-time & Distributed Systems: Stream processing with Kafka, large-scale data pipelines with Hadoop and Spark',
+  {
+    title: 'Systems for AI',
+    description: 'Building the infrastructure that trains, deploys, and serves ML models at scale.'
+  },
+  {
+    title: 'Robust Software Engineering',
+    description: 'From SOLID principles to functional programming—crafting maintainable code that accelerates team velocity.'
+  },
+  {
+    title: 'Real-time & Distributed Systems',
+    description: 'Stream processing with Kafka, large-scale data pipelines with Hadoop and Spark.'
+  },
 ];
 
 export const files = {

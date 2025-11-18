@@ -108,7 +108,7 @@ const config: Config = {
       logo: {
         alt: 'nearKim.coffee Logo',
         src: 'img/logo/logo-white.png',
-        srcDark: 'img/logo/logo-black.png',
+        srcDark: 'img/logo/logo-white-line.png',
       },
       items: [
         {

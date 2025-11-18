@@ -3,20 +3,64 @@
  * White background with black text, dark mode compatible
  */
 
-/* Hero Section */
+/* Hero Section - Split Layout */
 .heroSection {
-  height: 100vh;
+  height: calc(100vh - 60px);
+  margin-top: 60px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left Side - Full Visual */
+.heroLeft {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroVisual {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  will-change: transform;
+}
+
+.visualGradient {
+  width: 100%;
+  height: 100%;
+  background: url('/img/coffee.png') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+[data-theme='dark'] .visualGradient {
+  background: url('/img/coffee.png') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Right Side - Content */
+.heroRight {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   background: #ffffff;
   color: #000000;
-  overflow: hidden;
-  padding-bottom: 1rem;
 }
 
-[data-theme='dark'] .heroSection {
+[data-theme='dark'] .heroRight {
   background: #000000;
   color: #ffffff;
 }
@@ -24,18 +68,18 @@
 .heroContent {
   text-align: center;
   padding: 2rem;
-  max-width: 900px;
-  will-change: transform;
+  max-width: 600px;
+  width: 100%;
 }
 
 .heroText {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .heroName {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: #000000;
@@ -46,9 +90,9 @@
 }
 
 .heroTitle {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   font-weight: 400;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   color: #000000;
   opacity: 0.85;
   line-height: 1.5;
@@ -60,10 +104,10 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   opacity: 0.65;
   max-width: 100%;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
   line-height: 1.8;
   color: #000000;
   letter-spacing: 0.02em;
@@ -75,9 +119,9 @@
 
 .actionButtons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
   flex-wrap: wrap;
 }
 
@@ -185,11 +229,11 @@
 
 .scrollIndicator {
   position: absolute;
-  bottom: 3rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   color: #000000;
-  opacity: 0.6;
+  opacity: 0.5;
   z-index: 10;
   cursor: pointer;
   display: flex;
@@ -211,41 +255,65 @@
   60% { transform: translateY(-5px); }
 }
 
-/* About Section */
+/* About Section - Split Layout (Reversed) */
 .aboutSection {
-  min-height: calc(100vh - 80px);
-  padding: 3rem 3rem 2rem;
-  background: #ffffff;
-  position: relative;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left Side - Content */
+.aboutLeft {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #ffffff;
+  color: #000000;
+  padding: 3rem;
+}
+
+[data-theme='dark'] .aboutLeft {
+  background: #0d1117;
+  color: #ffffff;
+}
+
+/* Right Side - Full Visual */
+.aboutRight {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-[data-theme='dark'] .aboutSection {
-  background: #0d1117;
+.aboutVisual {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  will-change: transform;
 }
 
-.aboutSection::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(to bottom, #f5f5f5, transparent);
-  opacity: 0.5;
+.aboutGradient {
+  width: 100%;
+  height: 100%;
+  background: url('/img/whiskey.png') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-[data-theme='dark'] .aboutSection::before {
-  background: linear-gradient(to bottom, #161b22, transparent);
+[data-theme='dark'] .aboutGradient {
+  background: url('/img/whiskey.png') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .aboutContent {
-  max-width: 1400px;
+  max-width: 600px;
   width: 100%;
-  margin: 0 auto;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease;
@@ -258,13 +326,13 @@
 
 .aboutGrid {
   display: grid;
-  gap: 5rem;
+  gap: 3rem;
 }
 
 .sectionTitle {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: #000000;
   display: flex;
   align-items: center;
@@ -278,9 +346,9 @@
 }
 
 .subsectionTitle {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   font-weight: 600;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   color: #000000;
   display: flex;
   align-items: center;
@@ -303,10 +371,10 @@
 }
 
 .bioText {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.4;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  line-height: 1.7;
   color: #000000;
-  opacity: 0.75;
+  opacity: 0.85;
   letter-spacing: 0.01em;
 }
 
@@ -321,16 +389,18 @@
   gap: 1.5rem;
 }
 
-/* Simple bullet points */
+/* Technical interests with title and description */
 .interestItem {
   position: relative;
   padding-left: 1.5rem;
   opacity: 0;
   animation: slideIn 0.6s ease forwards;
   color: #000000;
-  line-height: 1.7;
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
   letter-spacing: 0.01em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 [data-theme='dark'] .interestItem {
@@ -341,10 +411,37 @@
   content: '•';
   position: absolute;
   left: 0;
+  top: 0.1rem;
   color: #000000;
+  font-weight: bold;
 }
 
 [data-theme='dark'] .interestItem::before {
+  color: #ffffff;
+}
+
+.interestTitle {
+  font-weight: 600;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.4;
+  color: #000000;
+  display: block;
+  margin-bottom: 0.05rem;
+}
+
+[data-theme='dark'] .interestTitle {
+  color: #ffffff;
+}
+
+.interestDescription {
+  opacity: 0.8;
+  line-height: 1.7;
+  color: #000000;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .interestDescription {
   color: #ffffff;
 }
 
@@ -360,18 +457,93 @@
 }
 
 /* Responsive Design */
-@media (min-width: 768px) {
+
+/* Mobile: Stack vertically */
+@media (max-width: 767px) {
+  .heroSection {
+    flex-direction: column;
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+
+  .heroLeft {
+    min-height: 40vh;
+    max-height: 40vh;
+  }
+
+  .heroRight {
+    flex: 1;
+    min-height: calc(60vh - 60px);
+  }
+
+  .heroContent {
+    padding: 1.5rem;
+  }
+
+  .heroText {
+    margin-bottom: 2rem;
+  }
+
+  .actionButtons {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .actionButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    min-width: 120px;
+  }
+
+  .socialLinks {
+    gap: 1.5rem;
+  }
+
+  .scrollIndicator {
+    bottom: 1.5rem;
+  }
+
+  /* About Section Mobile */
+  .aboutSection {
+    flex-direction: column;
+  }
+
+  .aboutLeft {
+    flex: 1;
+    min-height: 60vh;
+    padding: 2rem 1.5rem;
+  }
+
+  .aboutRight {
+    min-height: 40vh;
+    max-height: 40vh;
+  }
+
   .aboutGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
   }
 
-  .bioSection {
-    grid-column: 1 / -1;
+  .sectionTitle {
+    margin-bottom: 1.5rem;
   }
 
-  .interestsSection {
-    grid-column: 1 / -1;
+  .subsectionTitle {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .heroSection {
+    flex-direction: row;
+  }
+
+  .aboutSection {
+    flex-direction: row;
+  }
+
+  .aboutGrid {
+    gap: 3rem;
   }
 }
 

@@ -115,53 +115,63 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className={styles.heroSection}>
-      <div className={styles.heroContent} style={{ transform: `translateY(${scrollY * 0.3}px)` }}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroName}>{personalInfo.name}</h1>
-          <h2 className={styles.heroTitle}>{personalInfo.title}</h2>
-          <p className={styles.heroSubtitle}>{personalInfo.subtitle}</p>
-        </div>
-
-        <div className={styles.actionButtons}>
-          <button
-            className={`${styles.actionButton} ${styles.primary}`}
-            onClick={() => handleDownload('resume', handleResumeDownload)}
-            disabled={downloadingResume}
-            aria-label="Download Resume"
-          >
-            <FileText size={20} />
-            <span>Resume</span>
-          </button>
-
-          <button
-            className={`${styles.actionButton} ${styles.secondary}`}
-            onClick={() => handleDownload('portfolio', handlePortfolioDownload)}
-            disabled={downloadingPortfolio}
-            aria-label="View Portfolio"
-          >
-            <Briefcase size={20} />
-            <span>Portfolio</span>
-          </button>
-        </div>
-
-        <div className={styles.socialLinks}>
-          {socialLinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.socialLink}
-              aria-label={link.label}
-            >
-              {getSocialIcon(link.label)}
-            </a>
-          ))}
+      {/* Left Side - Full Visual */}
+      <div className={styles.heroLeft}>
+        <div className={styles.heroVisual} style={{ transform: `translateY(${scrollY * 0.2}px)` }}>
+          <div className={styles.visualGradient}></div>
         </div>
       </div>
 
-      <div className={styles.scrollIndicator}>
-        <ChevronDown className={styles.bounce} />
+      {/* Right Side - Content */}
+      <div className={styles.heroRight}>
+        <div className={styles.heroContent}>
+          <div className={styles.heroText}>
+            <h1 className={styles.heroName}>{personalInfo.name}</h1>
+            <h2 className={styles.heroTitle}>{personalInfo.title}</h2>
+            <p className={styles.heroSubtitle}>{personalInfo.subtitle}</p>
+          </div>
+
+          <div className={styles.actionButtons}>
+            <button
+              className={`${styles.actionButton} ${styles.primary}`}
+              onClick={() => handleDownload('resume', handleResumeDownload)}
+              disabled={downloadingResume}
+              aria-label="Download Resume"
+            >
+              <FileText size={20} />
+              <span>Resume</span>
+            </button>
+
+            <button
+              className={`${styles.actionButton} ${styles.secondary}`}
+              onClick={() => handleDownload('portfolio', handlePortfolioDownload)}
+              disabled={downloadingPortfolio}
+              aria-label="View Portfolio"
+            >
+              <Briefcase size={20} />
+              <span>Portfolio</span>
+            </button>
+          </div>
+
+          <div className={styles.socialLinks}>
+            {socialLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label={link.label}
+              >
+                {getSocialIcon(link.label)}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.scrollIndicator}>
+          <ChevronDown className={styles.bounce} />
+        </div>
       </div>
     </section>
   );
@@ -169,38 +179,44 @@ const HeroSection: React.FC = () => {
 
 const AboutSection: React.FC = () => {
   const { isVisible, setRef } = useIntersectionObserver(0.2);
+  const scrollY = useScrollPosition();
 
   return (
     <section className={styles.aboutSection} ref={setRef}>
-      <div className={`${styles.aboutContent} ${isVisible ? styles.fadeIn : ''}`}>
-        <div className={styles.aboutGrid}>
-          <div className={styles.bioSection}>
-            <h2 className={styles.sectionTitle}>
-              <Code2 className={styles.titleIcon} />
-              About
-            </h2>
-            <p className={styles.bioText}>{personalInfo.bio}</p>
-          </div>
+      {/* Left Side - Content */}
+      <div className={styles.aboutLeft}>
+        <div className={`${styles.aboutContent} ${isVisible ? styles.fadeIn : ''}`}>
+          <div className={styles.aboutGrid}>
+            <div className={styles.bioSection}>
+              <h2 className={styles.sectionTitle}>
+                <Code2 className={styles.titleIcon} />
+                About
+              </h2>
+              <p className={styles.bioText}>{personalInfo.bio}</p>
+            </div>
 
-          <div className={styles.interestsSection}>
-            <h3 className={styles.subsectionTitle}>
-              <Terminal className={styles.titleIcon} />
-              Technical Interests
-            </h3>
-            <ul className={styles.interestsList}>
-              {technicalInterests.map((interest, index) => (
-                <li
-                  key={index}
-                  className={styles.interestItem}
-                  style={{
-                    animationDelay: isVisible ? `${index * 0.1}s` : '0s'
-                  }}
-                >
-                  {interest}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.interestsSection}>
+              <h3 className={styles.subsectionTitle}>
+                <Terminal className={styles.titleIcon} />
+                Technical Interests
+              </h3>
+              
+                {technicalInterests.map((interest, index) => (
+                  <>
+                    <strong className={styles.interestTitle}>{interest.title}</strong>
+                    <span className={styles.interestDescription}>{interest.description}</span>
+                  </>
+                ))}
+              
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Right Side - Full Visual */}
+      <div className={styles.aboutRight}>
+        <div className={styles.aboutVisual} style={{ transform: `translateY(${scrollY * 0.15}px)` }}>
+          <div className={styles.aboutGradient}></div>
         </div>
       </div>
     </section>
