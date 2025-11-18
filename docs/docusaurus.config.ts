@@ -117,7 +117,6 @@ const config: Config = {
           position: 'left',
           label: 'Codex',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/nearKim/nearkim.coffee',
           label: 'GitHub',
