@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+title: Table of Contents
 ---
 
 # Section 1: Core Linear System Theory

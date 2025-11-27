@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Vector Spaces - Deep Dive
@@ -135,6 +135,52 @@ In sum,
 The **number of pivot columns** (rank) plus the **number of free columns** (nullity) must equal the **total number of columns** ($n$).
 
 Every single one of the $n$ dimensions of your input space is accounted for. It either contributes to the output (a pivot column) or it gets nullified (a free column).
+
+### Rank of Gram Matrix
+
+**Theorem**: For any matrix $A$, multiplying by its transpose does not change the rank:
+
+$$\text{rank}(A^T A) = \text{rank}(A)$$
+
+Similarly, $\text{rank}(AA^T) = \text{rank}(A)$.
+
+**Why This Matters:**
+
+The matrix $G = A^T A$ is called the **Gram matrix** (or Gramian). It appears frequently in:
+- **Linear regression**: The normal equations are $(A^T A)\beta = A^T b$
+- **Principal Component Analysis (PCA)**: The covariance matrix is proportional to $X^T X$
+- **Optimization**: The Hessian of quadratic forms involves $A^T A$
+
+**Key Insight:**
+
+If $A$ has linearly dependent columns (rank-deficient), then $G = A^T A$ inherits this dependency and is also rank-deficient. This means $G$ is **singular** (non-invertible), which causes computational problems:
+- Cannot solve $(A^T A)^{-1}$ in normal equations
+- Optimization algorithms fail with "singular matrix" errors
+- Numerical methods return `NaN` or unstable results
+
+**Proof Sketch:**
+
+1. **$\text{rank}(A^T A) \leq \text{rank}(A)$**: If $A$ has rank $r$, its column space is $r$-dimensional. Multiplying by $A^T$ cannot create new independent directions, so rank cannot increase.
+
+2. **$\text{rank}(A^T A) \geq \text{rank}(A)$**: For any vector $x$ in the nullspace of $A^T A$, we have $(A^T A)x = 0$. Multiplying both sides by $x^T$:
+   $$x^T(A^T A)x = 0$$
+   $$(Ax)^T(Ax) = 0$$
+   $$\|Ax\|^2 = 0$$
+   Therefore $Ax = 0$, so $x$ is also in the nullspace of $A$.
+
+   This shows $N(A^T A) = N(A)$. By the rank-nullity theorem:
+   $$\text{rank}(A^T A) = n - \dim(N(A^T A)) = n - \dim(N(A)) = \text{rank}(A)$$
+
+**Example:**
+
+Consider $A = \begin{bmatrix} 1 & 2 & 3 \\ 1 & 3 & 4 \\ 1 & 4 & 5 \\ 1 & 5 & 6 \end{bmatrix}$ where column 3 = column 1 + column 2.
+
+- $\text{rank}(A) = 2$ (only 2 independent columns)
+- $G = A^T A = \begin{bmatrix} 4 & 14 & 18 \\ 14 & 54 & 72 \\ 18 & 72 & 86 \end{bmatrix}$
+- $\text{rank}(G) = 2$ (also rank-deficient!)
+- $G$ is a $3 \times 3$ matrix with rank 2, so it's **not invertible**
+
+This explains why perfect multicollinearity in regression makes the problem unsolvable: the Gram matrix $X^T X$ becomes singular.
 
 ## Exercises
 
