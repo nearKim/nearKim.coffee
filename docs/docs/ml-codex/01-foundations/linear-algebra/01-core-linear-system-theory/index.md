@@ -50,7 +50,7 @@ Focus on fundamental algebraic structures and solution spaces.
 ## Navigation
 
 - [Vector Spaces Overview](01-vector-spaces-overview.md)
-- [Linear Transformations Overview](02-linear-transformations-overview.md)
-- [Matrix Operations Overview](03-matrix-operations-overview.md)
+- [Linear Transformations Overview](03-linear-transformations-overview.md)
+- [Matrix Operations Overview](04-matrix-operations-overview.md)
 - [Problems](problems.md)
 - [Python Implementation](implementation.md)

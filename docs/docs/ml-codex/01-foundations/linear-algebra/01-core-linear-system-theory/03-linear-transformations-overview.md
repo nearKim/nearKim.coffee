@@ -37,4 +37,4 @@ High-level overview of linear transformations, their properties, and relationshi
 ## References
 
 - Strang Chapter 2.6
-- [Deep Dive](02-linear-transformations-deepdive.md)
+- [Deep Dive](03-linear-transformations-deepdive.md)
