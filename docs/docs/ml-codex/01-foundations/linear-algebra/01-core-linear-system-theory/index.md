@@ -11,6 +11,13 @@ Focus on fundamental algebraic structures and solution spaces.
 
 ## Topics Covered
 
+### Chapter 0: Basic Concepts
+- Scalars and vectors
+- Inner product (dot product) and outer product
+- Vector norms (L1, L2)
+- Transpose and trace
+- Covariance and correlation matrices
+
 ### Chapter 1: Introduction to Vectors
 - Vectors and linear combinations
 - Lengths and dot products
@@ -49,7 +56,9 @@ Focus on fundamental algebraic structures and solution spaces.
 
 ## Navigation
 
+- [Basic Concepts Overview](00-basic-concepts-overview.md)
 - [Vector Spaces Overview](01-vector-spaces-overview.md)
+- [Matrix Inverse Overview](02-matrix-inverse-overview.md)
 - [Linear Transformations Overview](03-linear-transformations-overview.md)
 - [Matrix Operations Overview](04-matrix-operations-overview.md)
 - [Problems](problems.md)

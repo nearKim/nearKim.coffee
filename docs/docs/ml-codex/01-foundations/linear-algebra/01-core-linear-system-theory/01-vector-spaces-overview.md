@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # The Four Fundamental Subspaces
@@ -8,7 +8,7 @@ import TOCInline from '@theme/TOCInline';
 
 <TOCInline toc={toc} />
 
------
+---
 
 ## The Problem of Solving Linear Equations
 
@@ -61,7 +61,7 @@ A **basis** for a vector space $V$ is a set of vectors $\{v_1, \dots, v_k\}$ tha
 
 ### Dimension
 
-From the examples above, we see that any vector in $\mathbb{R}^2$ can be represented by a linear combination of exactly **two** basis vectors, while any vector in $\mathbb{R}^3$ requires exactly **three** basis vectors. This number of vectors in a basis is the **dimension** of the space—it measures the "degrees of freedom" or the number of independent directions in that space. Remarkably, all bases for the same vector space contain the same number of vectors.
+From the examples above, we see that any vector in $\mathbb{R}^2$ can be represented by a linear combination of exactly **two** basis vectors, while any vector in $\mathbb{R}^3$ requires exactly **three** basis vectors. This number of vectors in a basis is the **dimension** of the space—it measures the "degrees of freedom" or the number of independent directions in that space. All bases for the same vector space contain the same number of vectors.
 
 :::info[Theorem: The Basis Theorem]
 Let $V$ be a vector space with a finite basis. Then every basis for $V$ contains exactly the same number of vectors.
@@ -82,7 +82,7 @@ The **dimension** of a vector space $V$, denoted $\dim(V)$, is the number of vec
 
 Consider the matrix $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$. The second column is twice the first column, making them linearly dependent. Both columns lie on the same line in $\mathbb{R}^2$. All vectors that can be created by combining these columns span only a one-dimensional line, not the full two-dimensional plane. The number of linearly independent columns (or equivalently, the dimension of the space they span) is 1. This number is called the **rank** of the matrix.
 
-The rank measures how many independent columns a matrix has. Remarkably, this always equals the number of independent rows.
+The rank measures how many independent columns a matrix has. This always equals the number of independent rows.
 
 :::danger[Definition: Rank]
 The **rank** of a matrix $A$, denoted $\text{rank}(A)$ or $r$, is the dimension of its column space: $\text{rank}(A) = \dim(C(A))$.
@@ -295,7 +295,7 @@ Therefore: $x_r = \begin{bmatrix} 2/3 \\ -1/3 \\ 1/3 \end{bmatrix}$ is the uniqu
 
 For any particular solution $x_p$, we can write it as $x_p = x_r + x_n$. The row space component $x_r$ is the same for all particular solutions (since they differ only by nullspace vectors). Therefore, there is exactly one particular solution that lies entirely in the row space: the one with zero nullspace component.
 
-**Geometric Intuition:** The solution set forms a line (or higher-dimensional affine space) parallel to $N(A)$. This line intersects the row space $C(A^T)$ at exactly one point, since $C(A^T) \perp N(A)$.
+The solution set forms a line (or higher-dimensional affine space) parallel to $N(A)$. This line intersects the row space $C(A^T)$ at exactly one point, since $C(A^T) \perp N(A)$.
 
 </details>
 
@@ -495,7 +495,7 @@ The full solution set is $x = x_p + x_n$.
 
 :::
 
------
+---
 
 ## Summary: The Fundamental Theorem of Linear Algebra
 
@@ -671,7 +671,7 @@ Therefore, **$A^T A$ is invertible**.
 
 </details>
 
------
+---
 
 ## References
 
