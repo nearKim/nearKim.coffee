@@ -233,8 +233,13 @@ main {
   flex-direction: column;
 }
 
-/* Compensate for fixed navbar on homepage */
+/* Compensate for fixed navbar */
 .main-wrapper {
+  padding-top: 60px; /* Height of navbar */
+}
+
+/* Reset for homepage (hero handles its own spacing) */
+.main-wrapper:has(.hero) {
   padding-top: 0;
 }
 

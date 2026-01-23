@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Matrix Inverse and Invertibility
@@ -593,7 +593,7 @@ $$
 
 #### Part 3: Rank and Invertibility of $G$
 
-**Key Fact:** $\text{rank}(A^T A) = \text{rank}(A)$ (see [Vector Spaces Deep Dive](./01-vector-spaces-deepdive.md#rank-of-gram-matrix) for proof)
+**Key Fact:** $\text{rank}(A^T A) = \text{rank}(A)$ (see [Vector Spaces Overview](./01-vector-spaces-overview.md#rank-of-gram-matrix) for proof)
 
 1.  **Rank of A:** Since column 3 is dependent on columns 1 and 2 (and columns 1 and 2 are independent of each other), $\text{rank}(A) = 2$.
 2.  **Rank of G:** Therefore, $\text{rank}(G) = \text{rank}(A^T A) = \text{rank}(A) = 2$.

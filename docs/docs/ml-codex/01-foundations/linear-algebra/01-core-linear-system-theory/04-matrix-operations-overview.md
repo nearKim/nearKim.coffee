@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # Matrix Operations - Overview
@@ -37,4 +37,3 @@ High-level overview of matrix multiplication, LU decomposition, and special matr
 ## References
 
 - Strang Chapter 1.4, 1.5, 1.7
-- [Deep Dive](04-matrix-operations-deepdive.md)

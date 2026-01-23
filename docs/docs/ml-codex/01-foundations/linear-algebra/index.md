@@ -1,5 +1,6 @@
 ---
-title: Overview
+title: "Linear Algebra for Machine Learning"
+sidebar_label: "Table of Contents"
 sidebar_position: 1
 ---
 

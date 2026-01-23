@@ -536,6 +536,104 @@ These orthogonal complement relationships mean:
 
 *Figure: Visual representation of the four fundamental subspaces and their relationships. [1]*
 
+---
+
+## Fundamental Theorems
+
+### Row Rank = Column Rank
+
+The number of independent rows in a matrix $A$ is always equal to the number of independent columns. This number is the rank $r$.
+
+$$\dim(C(A^T)) = \dim(C(A)) = \text{rank}(A)$$
+
+**Why is this true?** Consider a $3 \times 4$ matrix:
+
+$$A = \begin{bmatrix} 1 & 2 & 0 & 3 \\ 0 & 0 & 1 & 4 \\ 1 & 2 & 1 & 7 \end{bmatrix}$$
+
+Since $r_3 = r_1 + r_2$:
+- **Basis of $C(A^T)$**: $\{ r_1, r_2 \}$, so $\dim(C(A^T)) = 2$
+
+Looking at columns: $c_2 = 2c_1$ and $c_4 = 3c_1 + 4c_3$, while $c_1$ and $c_3$ are independent:
+- **Basis for $C(A)$**: $\{ c_1, c_3 \}$, so $\dim(C(A)) = 2$
+
+**The deep insight**: Look at our basis rows $r_1$ and $r_2$:
+- $r_1 = \begin{bmatrix} 1 & \mathbf{2} & 0 & \mathbf{3} \end{bmatrix}$
+- $r_2 = \begin{bmatrix} 0 & \mathbf{0} & 1 & \mathbf{4} \end{bmatrix}$
+
+The "recipe" to build the dependent columns is written *directly* into the non-basis columns of the basis rows:
+- To make $c_2$: use $\mathbf{2}c_1 + \mathbf{0}c_3$. Those coefficients $\begin{bmatrix} 2 \\ 0 \end{bmatrix}$ sit in column 2 of the basis rows.
+- To make $c_4$: use $\mathbf{3}c_1 + \mathbf{4}c_3$. Those coefficients $\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ sit in column 4 of the basis rows.
+
+Similarly, looking at basis columns $\{c_1, c_3\} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}$, the recipe to build $r_3 = 1 \cdot r_1 + 1 \cdot r_2$ is written in row 3 of the basis columns.
+
+You can't add an independent row without also creating an independent column. The **rank $r$** is the true number of "independent ingredients"—it dictates both how many independent rows and columns you can form.
+
+### Rank-Nullity Theorem
+
+$$\text{rank}(A) + \text{nullity}(A) = n$$
+
+**Example**: Let $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}$ transform $\mathbb{R}^3 \to \mathbb{R}^2$.
+
+**Finding the rank**: The output $Ax = x_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix} + x_2 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + x_3 \begin{bmatrix} 2 \\ 3 \end{bmatrix}$. Since $c_3 = 2c_1 + 3c_2$, the third column is redundant.
+- **Basis for $C(A)$**: $\left\{ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix} \right\}$
+- **rank$(A) = 2$** — two input dimensions "survive"
+
+**Finding the nullity**: Solve $Ax = 0$:
+$$\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
+
+This gives $x_1 = -2x_3$ and $x_2 = -3x_3$, with $x_3$ free. The nullspace is:
+$$x_{\text{null}} = t \begin{bmatrix} -2 \\ -3 \\ 1 \end{bmatrix}$$
+
+- **Basis for $N(A)$**: $\left\{ \begin{bmatrix} -2 \\ -3 \\ 1 \end{bmatrix} \right\}$
+- **nullity$(A) = 1$** — one input dimension "gets lost"
+
+**Verification**: $\text{rank}(A) + \text{nullity}(A) = 2 + 1 = 3 = n$ ✓
+
+Every input dimension is accounted for: it either contributes to the output (pivot column) or gets nullified (free column).
+
+### Rank of Gram Matrix
+
+:::info[Theorem: Rank Preservation Under Transpose Multiplication]
+For any matrix $A$:
+$$\text{rank}(A^T A) = \text{rank}(A)$$
+
+Similarly, $\text{rank}(AA^T) = \text{rank}(A)$.
+:::
+
+**Why this matters in ML**: The matrix $G = A^T A$ (the **Gram matrix**) appears in:
+- **Linear regression**: Normal equations $(A^T A)\beta = A^T b$
+- **PCA**: Covariance matrix is proportional to $X^T X$
+- **Optimization**: Hessians of quadratic forms
+
+If $A$ has linearly dependent columns (rank-deficient), then $G = A^T A$ is also rank-deficient and **singular** (non-invertible). This causes:
+- Cannot solve $(A^T A)^{-1}$ in normal equations
+- "Singular matrix" errors in optimization
+- Numerical instability
+
+<details>
+<summary>📌 **Proof**</summary>
+
+**Claim**: $N(A^T A) = N(A)$
+
+*Forward direction* ($N(A) \subseteq N(A^T A)$): If $Ax = 0$, then $(A^T A)x = A^T(Ax) = 0$.
+
+*Backward direction* ($N(A^T A) \subseteq N(A)$): If $(A^T A)x = 0$, multiply by $x^T$:
+$$x^T(A^T A)x = 0 \implies (Ax)^T(Ax) = 0 \implies \|Ax\|^2 = 0 \implies Ax = 0$$
+
+Since $N(A^T A) = N(A)$, by Rank-Nullity:
+$$\text{rank}(A^T A) = n - \dim(N(A^T A)) = n - \dim(N(A)) = \text{rank}(A)$$
+
+</details>
+
+**Example**: Let $A = \begin{bmatrix} 1 & 2 & 3 \\ 1 & 3 & 4 \\ 1 & 4 & 5 \\ 1 & 5 & 6 \end{bmatrix}$ where $c_3 = c_1 + c_2$.
+
+- $\text{rank}(A) = 2$ (only 2 independent columns)
+- $G = A^T A = \begin{bmatrix} 4 & 14 & 18 \\ 14 & 54 & 72 \\ 18 & 72 & 86 \end{bmatrix}$
+- $\text{rank}(G) = 2$ (also rank-deficient!)
+
+This explains why perfect multicollinearity in regression makes the problem unsolvable: $X^T X$ becomes singular.
+
+---
 
 ## Guided Problems
 
