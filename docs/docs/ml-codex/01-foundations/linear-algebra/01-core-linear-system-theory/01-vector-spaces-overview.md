@@ -445,7 +445,7 @@ Their dimensions add up to $m$: $\dim(C(A)) + \dim(N(A^T)) = r + (m-r) = 2 + 1 =
 
 The shape of a matrix ($m \times n$) fundamentally determines what kinds of solutions are possible.
 
-### Fat Matrices ($m < n$): More Features Than Samples
+### Fat Matrices (m &lt; n): More Features Than Samples
 
 - **Shape:** Wide and short (more columns than rows)
 - **Constraint:** Max rank is $m$, so $r \leq m < n$
@@ -454,7 +454,7 @@ The shape of a matrix ($m \times n$) fundamentally determines what kinds of solu
 
 **Example:** A $10 \times 1000$ matrix (10 samples, 1000 features) must have nullspace dimension $\geq 990$.
 
-### Skinny Matrices ($m > n$): More Samples Than Features
+### Skinny Matrices (m &gt; n): More Samples Than Features
 
 - **Shape:** Tall and narrow (more rows than columns)
 - **Constraint:** Max rank is $n$, so $r \leq n < m$
@@ -707,13 +707,13 @@ This explains why perfect multicollinearity in regression makes the problem unso
 
 The matrix shape determines which ML paradigm applies.
 
-### The Classical Regime: Skinny ($m > n$)
+### The Classical Regime: Skinny (m &gt; n)
 
 **Scenario:** 100 samples, 5 features → $100 \times 5$ design matrix.
 
 No hyperplane can pass through all data points perfectly. We project $b$ onto $C(A)$ to find the "closest" fit.
 
-### The Deep Learning Regime: Fat ($m < n$)
+### The Deep Learning Regime: Fat (m &lt; n)
 
 **Scenario:** 10 samples, 1000 parameters → $10 \times 1000$ design matrix.
 
