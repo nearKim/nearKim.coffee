@@ -88,11 +88,27 @@ The rank measures how many independent columns a matrix has. This always equals 
 The **rank** of a matrix $A$, denoted $\text{rank}(A)$ or $r$, is the dimension of its column space: $\text{rank}(A) = \dim(C(A))$.
 :::
 
-:::info[Theorem: The Rank Theorem]
+:::info[Theorem: Row Rank = Column Rank]
 The dimension of the column space equals the dimension of the row space.
 $$\dim(C(A)) = \dim(C(A^T)) = r$$
 Consequently, the number of pivot positions in $A$ is equal to the rank of $A$.
 :::
+
+<details>
+<summary>📌 **Proof via RREF**</summary>
+
+1. **Row operations preserve row space:** Elementary row operations (scaling, adding, swapping) create linear combinations of existing rows. The span of the rows remains unchanged.
+
+2. **Column dependencies are preserved:** While column vectors themselves change, the *linear relationships* between them are invariant. If $c_1 + c_2 = c_3$ initially, this holds in the RREF.
+
+3. **Pivot count links both:** In the final RREF "staircase" shape:
+   - Every **pivot** (leading 1) corresponds to a non-zero row
+   - Every **pivot** defines a linearly independent column
+   - Therefore: Number of Non-Zero Rows = Number of Pivot Columns
+
+**Conclusion:** Row Rank = Column Rank = Number of Pivots.
+
+</details>
 
 **How to Find Rank:** The rank $r$ equals the number of **pivots** found by Gaussian elimination in the echelon form $U$ or reduced row echelon form $R$.
 
@@ -100,6 +116,14 @@ Consequently, the number of pivot positions in $A$ is equal to the rank of $A$.
 $$A = \begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{bmatrix} \xrightarrow{\text{elimination}} U = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 0 & 0 \end{bmatrix}$$
 
 This matrix has only **one pivot** (the 1 in position (1,1)), so $\text{rank}(A) = 1$.
+
+### Rank as Information Count
+
+In a data matrix where rows are samples and columns are features:
+
+- **Redundancy:** If a feature is a linear combination of others (e.g., "Price in Euros" vs. "Price in USD"), it adds no new dimension
+- **Rank:** Measures the number of **independent directions** in the data—the true dimensionality of the "information manifold" the data lives on, ignoring redundant axes
+- **Deficient rank:** Signals multicollinearity, causing instability in regression and non-unique solutions
 
 ### Dimension vs Rank
 
@@ -177,6 +201,17 @@ It is a subspace of $\mathbb{R}^n$.
 The rank of a matrix $A$ plus the dimension of its nullspace equals the number of columns of $A$:
 $$\text{rank}(A) + \dim(N(A)) = n$$
 :::
+
+**Proof via Counting:** In RREF, every column falls into one of two categories:
+1. **Pivot Columns:** Correspond to the Rank ($r$)
+2. **Free Columns:** Correspond to free variables in $Ax = 0$. Each free variable generates one independent basis vector for the Nullspace.
+
+Therefore: Total Columns ($n$) = Pivot Cols ($r$) + Free Cols (Nullity).
+
+**Conservation of Information:** This theorem acts as a conservation law for linear transformations $T: \mathbb{R}^n \to \mathbb{R}^m$:
+- **Input ($n$):** Total dimensions of information entering the system
+- **Rank ($r$):** Information that **survives** the transformation (mapped to the output space)
+- **Nullity ($n - r$):** Information that is **destroyed** (mapped to zero)
 
 **Key Properties:**
 
@@ -406,6 +441,39 @@ $$\begin{bmatrix} -1 \\ -1 \\ 1 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 2 \\ 3 
 
 Their dimensions add up to $m$: $\dim(C(A)) + \dim(N(A^T)) = r + (m-r) = 2 + 1 = 3 = m$.
 
+## Matrix Shapes and Geometry
+
+The shape of a matrix ($m \times n$) fundamentally determines what kinds of solutions are possible.
+
+### Fat Matrices ($m < n$): More Features Than Samples
+
+- **Shape:** Wide and short (more columns than rows)
+- **Constraint:** Max rank is $m$, so $r \leq m < n$
+- **Nullspace:** Since $\text{nullity} = n - r \geq n - m > 0$, the nullspace is **always non-trivial**
+- **Implication:** Some information is guaranteed to be destroyed; the transformation cannot be injective
+
+**Example:** A $10 \times 1000$ matrix (10 samples, 1000 features) must have nullspace dimension $\geq 990$.
+
+### Skinny Matrices ($m > n$): More Samples Than Features
+
+- **Shape:** Tall and narrow (more rows than columns)
+- **Constraint:** Max rank is $n$, so $r \leq n < m$
+- **Left Nullspace:** Applying Rank-Nullity to $A^T$: $\dim(N(A^T)) = m - r \geq m - n > 0$
+- **Implication:** The column space cannot fill the output space $\mathbb{R}^m$; the transformation cannot be surjective
+
+**Unreachable Space:** The column space is a lower-dimensional subspace (e.g., a 2D plane) inside the larger output space (e.g., a 3D room). The left nullspace represents directions **orthogonal** to the data—outputs the model cannot reach.
+
+### Trivial vs. Nontrivial Nullspace
+
+| Nullspace Type | Condition | Columns | Geometry | Solutions to $Ax = b$ |
+|----------------|-----------|---------|----------|----------------------|
+| **Trivial** | $N(A) = \{0\}$ | Linearly independent | **Injective** (one-to-one) | At most one solution |
+| **Nontrivial** | $N(A) \neq \{0\}$ | Linearly dependent | **Non-injective** (many-to-one) | If solvable, infinitely many |
+
+When the nullspace is nontrivial, a line (or plane) of inputs collapses to a single output point.
+
+---
+
 ## Integrating Concepts: The Complete Solution
 
 The four subspaces provide a complete answer to the two fundamental questions about $Ax = b$.
@@ -632,6 +700,50 @@ $$\text{rank}(A^T A) = n - \dim(N(A^T A)) = n - \dim(N(A)) = \text{rank}(A)$$
 - $\text{rank}(G) = 2$ (also rank-deficient!)
 
 This explains why perfect multicollinearity in regression makes the problem unsolvable: $X^T X$ becomes singular.
+
+---
+
+## Applications in Data Science and Machine Learning
+
+The matrix shape determines which ML paradigm applies.
+
+### The Classical Regime: Skinny ($m > n$)
+
+**Scenario:** 100 samples, 5 features → $100 \times 5$ design matrix.
+
+No hyperplane can pass through all data points perfectly. We project $b$ onto $C(A)$ to find the "closest" fit.
+
+### The Deep Learning Regime: Fat ($m < n$)
+
+**Scenario:** 10 samples, 1000 parameters → $10 \times 1000$ design matrix.
+
+Infinite hyperplanes can pass through the data points. Among all zero-error solutions, we select the one with smallest norm.
+
+### Comparison Table
+
+| Feature | **Classical ML (Skinny $m > n$)** | **Deep Learning (Fat $m < n$)** |
+|---------|-----------------------------------|----------------------------------|
+| **System** | Overdetermined (too many constraints) | Underdetermined (too much freedom) |
+| **Typical Rank** | Full column rank ($r = n$) | Full row rank ($r = m$) |
+| **Nullspace** | Trivial (unique coefficient mapping) | Nontrivial (collapses dimensions) |
+| **Solvability of $Ax = b$** | **Usually impossible** (target off the map) | **Infinite solutions** (affine plane) |
+| **Training Error** | **Non-zero** (usually) | **Exactly zero** (perfect interpolation) |
+| **Goal** | Minimize error: $\min \|Ax - b\|^2$ | Minimize norm: $\min \|x\|^2$ s.t. $Ax = b$ |
+| **Geometry** | **Projection** (shadow of $b$ on $C(A)$) | **Selection** (closest point to origin) |
+
+### The Valley Geometry (Fat Regime)
+
+In the underdetermined case, the loss landscape has distinctive structure:
+
+- The loss function $\|Ax - b\|^2$ is **convex** but not strictly convex
+- Instead of a unique minimum (bowl shape), there's a **flat region** of zero-loss solutions (valley shape)
+- Gradient descent rolls down and stops at the first zero-loss point it hits
+- **Key insight:** Initialization at zero naturally finds the **minimum norm solution** because gradient descent stays in the row space $C(A^T)$ throughout optimization
+
+This valley geometry explains why:
+- Deep networks can perfectly interpolate training data
+- Regularization (Ridge) adds curvature to convert the valley into a bowl
+- The implicit bias of gradient descent favors simpler (lower-norm) solutions
 
 ---
 

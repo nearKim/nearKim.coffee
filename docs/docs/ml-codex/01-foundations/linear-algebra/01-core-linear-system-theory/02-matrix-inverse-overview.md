@@ -102,7 +102,7 @@ For an $n \times n$ matrix $A$, the following statements are equivalent:
 
 ## Invertibility and the Four Fundamental Subspaces
 
-The four fundamental subspaces tell the complete story of when and why a matrix is invertible.
+The four fundamental subspaces tell the complete story of when and why a matrix is invertible. See [The Four Fundamental Subspaces](./01-vector-spaces-overview.md#the-four-fundamental-subspaces) for detailed definitions and basis-finding procedures.
 
 ### When $A$ is Invertible
 
@@ -244,87 +244,6 @@ The unit square (left) transforms to a parallelogram with area $= |\det(A)|$. An
 
 ---
 
-## Applications in Data Science and Machine Learning
-
-### 1. Linear Regression (Ordinary Least Squares)
-
-The normal equations for OLS are:
-
-$$(X^T X)\beta = X^T y$$
-
-where $X$ is the $m \times n$ design matrix ($m$ samples, $n$ features), $y \in \mathbb{R}^m$ is the target vector, and $\beta \in \mathbb{R}^n$ are the coefficients we want to find.
-
-**The Gram Matrix** $G = X^T X$ must be invertible to get a unique solution:
-
-$$\beta = (X^T X)^{-1} X^T y$$
-
-**When is $X^TX$ invertible?**
-- The columns of $X$ must be linearly independent
-- There must be no **perfect multicollinearity** (no feature is a linear combination of others)
-- You need at least as many samples as features ($m \geq n$)
-
-**What goes wrong when $X^TX$ is singular?**
-
-When $X^TX$ is singular, $N(X^TX) = N(X) \neq \{\mathbf{0}\}$, meaning some non-zero vector $\mathbf{v}$ satisfies $X\mathbf{v} = \mathbf{0}$.
-
-<details>
-<summary>Why $N(X^TX) = N(X)$?</summary>
-
-- $N(X) \subseteq N(X^TX)$: If $X\mathbf{v} = \mathbf{0}$, then $X^TX\mathbf{v} = X^T\mathbf{0} = \mathbf{0}$.
-- $N(X^TX) \subseteq N(X)$: If $X^TX\mathbf{v} = \mathbf{0}$, multiply both sides by $\mathbf{v}^T$: $\mathbf{v}^TX^TX\mathbf{v} = \|X\mathbf{v}\|^2 = 0$. A vector with zero norm must be $\mathbf{0}$, so $X\mathbf{v} = \mathbf{0}$.
-
-</details>
-
-1. **Non-unique coefficients**: If $\beta^*$ is a solution, then $\beta^* + t\mathbf{v}$ is also a solution for any scalar $t$, because $X(\beta^* + t\mathbf{v}) = X\beta^* + tX\mathbf{v} = X\beta^*$. The solution space is an affine subspace, not a single point.
-
-2. **Interpretability breaks down**: Suppose features $x_2 = 2x_1$ (perfect multicollinearity). Then $\beta_1 = 5, \beta_2 = 0$ and $\beta_1 = 1, \beta_2 = 2$ produce identical predictions. You cannot attribute effect to individual features.
-
-3. **Numerical instability**: Even if $X^TX$ is technically invertible but nearly singular (high condition number), floating-point errors get amplified. A condition number of $10^8$ with double precision ($\sim 16$ digits) leaves only $\sim 8$ reliable digits in $\beta$.
-
-### 2. Ridge Regression (Regularization)
-
-When $X^TX$ is singular or nearly singular, we add a **regularization term**:
-
-$$(X^T X + \lambda I)\beta = X^T y$$
-
-**Why does this help?**
-
-Adding $\lambda I$ eliminates the nullspace. Suppose $\mathbf{v} \in N(X^TX + \lambda I)$, meaning $(X^TX + \lambda I)\mathbf{v} = \mathbf{0}$. Then:
-
-$$X^TX\mathbf{v} = -\lambda\mathbf{v}$$
-
-Taking the inner product with $\mathbf{v}$:
-
-$$\mathbf{v}^TX^TX\mathbf{v} = -\lambda\mathbf{v}^T\mathbf{v}$$
-$$\|X\mathbf{v}\|^2 = -\lambda\|\mathbf{v}\|^2$$
-
-The left side is $\geq 0$. The right side is $\leq 0$ when $\lambda > 0$ (and strictly negative if $\mathbf{v} \neq \mathbf{0}$). The only solution is $\mathbf{v} = \mathbf{0}$. Therefore $N(X^TX + \lambda I) = \{\mathbf{0}\}$, so the matrix is invertible.
-
-<details>
-<summary>Eigenvalue perspective</summary>
-
-The "flat direction" $\mathbf{v}$ is an eigenvector of $X^TX$ with a small eigenvalue $\lambda_i \approx 0$. Eigenvalues measure curvature: $X^TX\mathbf{v} = \lambda_i\mathbf{v}$ means moving along $\mathbf{v}$ changes the loss by only $\lambda_i\|\mathbf{v}\|^2$—nearly zero if $\lambda_i \approx 0$.
-
-If $X^TX$ has eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$, then $X^TX + \lambda I$ has eigenvalues $\lambda_1 + \lambda, \lambda_2 + \lambda, \ldots, \lambda_n + \lambda$. The flat directions (small $\lambda_i$) become steep (now $\lambda_i + \lambda$). If some $\lambda_i = 0$ (singular), adding $\lambda > 0$ shifts all eigenvalues positive, making the matrix invertible.
-
-</details>
-
-**Trade-off:** Regularization introduces bias (the solution is no longer exactly optimal for the training data) but reduces variance (the solution is more stable—small changes in data don't cause large swings in $\beta$).
-
-When $X^TX$ is nearly singular, there exists a direction $\mathbf{v}$ where $X^TX\mathbf{v} \approx \mathbf{0}$. The solution can "slide" along $\mathbf{v}$ with almost no change in the loss $\|X\beta - y\|^2$. Small noise in $y$ can push $\beta$ far along this flat direction.
-
-Adding $\lambda I$ penalizes movement in all directions equally. Now sliding along $\mathbf{v}$ costs $\lambda\|\mathbf{v}\|^2$, anchoring the solution near the origin. The flatter the original direction, the more regularization helps.
-
-### 3. Solving Linear Systems
-
-Whenever we need to solve $Ax = b$:
-- **Invertible $A$:** Unique solution $x = A^{-1}b$
-- **Singular $A$:** Either no solution or infinitely many solutions
-
-In practice, we rarely compute $A^{-1}$ explicitly. Instead, we use matrix factorizations (LU, QR, Cholesky) that solve $Ax = b$ more efficiently and stably.
-
----
-
 ## Near-Singularity and Condition Number
 
 In numerical computing, a matrix can be "technically invertible" but still cause problems. This happens when the matrix is **ill-conditioned**—close to being singular.
@@ -368,6 +287,145 @@ The tiny $\sigma_{\min}$ signals a nearly flat direction—small changes in $\ma
 - Check the condition number before inverting matrices
 - Prefer factorization methods (LU, QR) over explicit inversion
 - Use regularization for ill-conditioned problems
+
+---
+
+## Summary
+
+**Invertibility fundamentals:**
+- A square matrix $A$ is **invertible** if $AA^{-1} = A^{-1}A = I$; the inverse is unique when it exists
+- Non-square matrices cannot be invertible: tall matrices aren't onto, wide matrices aren't one-to-one
+- For non-square systems, the **pseudo-inverse** provides the least-squares (skinny) or minimum-norm (fat) solution
+
+**Equivalent conditions (Invertible Matrix Theorem):**
+- Full rank ($\text{rank}(A) = n$)
+- Linearly independent columns (and rows)
+- Trivial nullspace: $N(A) = \{\mathbf{0}\}$
+- Non-zero determinant: $\det(A) \neq 0$
+- Column space spans $\mathbb{R}^n$: $C(A) = \mathbb{R}^n$
+
+**Four fundamental subspaces view:**
+- Invertible: all four subspaces have "perfect" dimensions (column/row space = $\mathbb{R}^n$, nullspaces = $\{\mathbf{0}\}$)
+- Singular: some dimension collapses (non-trivial nullspace), some outputs unreachable (column space $\subsetneq \mathbb{R}^n$)
+- See [Applications](./01-vector-spaces-overview.md#applications-in-data-science-and-machine-learning) for skinny vs. fat matrix implications
+
+**Computing and testing:**
+- Gauss-Jordan elimination: row-reduce $[A \mid I]$ to $[I \mid A^{-1}]$
+- The $2 \times 2$ formula: $A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$
+- Determinant test: $\det(A) = 0$ iff the transformation collapses volume to zero
+- Condition number $\kappa = \sigma_{\max}/\sigma_{\min}$ measures numerical stability; high $\kappa$ amplifies errors
+
+---
+
+## Applications in Data Science and Machine Learning
+
+:::tip[Two ML Regimes]
+The shape of your data matrix (skinny vs. fat) determines whether you face an overdetermined system (minimize error) or underdetermined system (minimize norm). See [Two Fundamental Regimes](./01-vector-spaces-overview.md#applications-in-data-science-and-machine-learning) for the complete comparison.
+:::
+
+### Linear Regression (Ordinary Least Squares)
+
+The normal equations for OLS are:
+
+$$(X^T X)\beta = X^T y$$
+
+where $X$ is the $m \times n$ design matrix ($m$ samples, $n$ features), $y \in \mathbb{R}^m$ is the target vector, and $\beta \in \mathbb{R}^n$ are the coefficients we want to find.
+
+**The Gram Matrix** $G = X^T X$ must be invertible to get a unique solution:
+
+$$\beta = (X^T X)^{-1} X^T y$$
+
+**When is $X^TX$ invertible?**
+- The columns of $X$ must be linearly independent
+- There must be no **perfect multicollinearity** (no feature is a linear combination of others)
+- You need at least as many samples as features ($m \geq n$)
+
+**What goes wrong when $X^TX$ is singular?**
+
+When $X^TX$ is singular, $N(X^TX) = N(X) \neq \{\mathbf{0}\}$, meaning some non-zero vector $\mathbf{v}$ satisfies $X\mathbf{v} = \mathbf{0}$.
+
+<details>
+<summary>Why $N(X^TX) = N(X)$?</summary>
+
+- $N(X) \subseteq N(X^TX)$: If $X\mathbf{v} = \mathbf{0}$, then $X^TX\mathbf{v} = X^T\mathbf{0} = \mathbf{0}$.
+- $N(X^TX) \subseteq N(X)$: If $X^TX\mathbf{v} = \mathbf{0}$, multiply both sides by $\mathbf{v}^T$: $\mathbf{v}^TX^TX\mathbf{v} = \|X\mathbf{v}\|^2 = 0$. A vector with zero norm must be $\mathbf{0}$, so $X\mathbf{v} = \mathbf{0}$.
+
+</details>
+
+1. **Non-unique coefficients**: If $\beta^*$ is a solution, then $\beta^* + t\mathbf{v}$ is also a solution for any scalar $t$, because $X(\beta^* + t\mathbf{v}) = X\beta^* + tX\mathbf{v} = X\beta^*$. The solution space is an affine subspace, not a single point.
+
+2. **Interpretability breaks down**: Suppose features $x_2 = 2x_1$ (perfect multicollinearity). Then $\beta_1 = 5, \beta_2 = 0$ and $\beta_1 = 1, \beta_2 = 2$ produce identical predictions. You cannot attribute effect to individual features.
+
+3. **Numerical instability**: Even if $X^TX$ is technically invertible but nearly singular (high condition number), floating-point errors get amplified. A condition number of $10^8$ with double precision ($\sim 16$ digits) leaves only $\sim 8$ reliable digits in $\beta$.
+
+### Ridge Regression (Regularization)
+
+When $X^TX$ is singular or nearly singular, we add a **regularization term**:
+
+$$(X^T X + \lambda I)\beta = X^T y$$
+
+**Why does this help?**
+
+Adding $\lambda I$ eliminates the nullspace. Suppose $\mathbf{v} \in N(X^TX + \lambda I)$, meaning $(X^TX + \lambda I)\mathbf{v} = \mathbf{0}$. Then:
+
+$$X^TX\mathbf{v} = -\lambda\mathbf{v}$$
+
+Taking the inner product with $\mathbf{v}$:
+
+$$\mathbf{v}^TX^TX\mathbf{v} = -\lambda\mathbf{v}^T\mathbf{v}$$
+$$\|X\mathbf{v}\|^2 = -\lambda\|\mathbf{v}\|^2$$
+
+The left side is $\geq 0$. The right side is $\leq 0$ when $\lambda > 0$ (and strictly negative if $\mathbf{v} \neq \mathbf{0}$). The only solution is $\mathbf{v} = \mathbf{0}$. Therefore $N(X^TX + \lambda I) = \{\mathbf{0}\}$, so the matrix is invertible.
+
+<details>
+<summary>Eigenvalue perspective</summary>
+
+The "flat direction" $\mathbf{v}$ is an eigenvector of $X^TX$ with a small eigenvalue $\lambda_i \approx 0$. Eigenvalues measure curvature: $X^TX\mathbf{v} = \lambda_i\mathbf{v}$ means moving along $\mathbf{v}$ changes the loss by only $\lambda_i\|\mathbf{v}\|^2$—nearly zero if $\lambda_i \approx 0$.
+
+If $X^TX$ has eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$, then $X^TX + \lambda I$ has eigenvalues $\lambda_1 + \lambda, \lambda_2 + \lambda, \ldots, \lambda_n + \lambda$. The flat directions (small $\lambda_i$) become steep (now $\lambda_i + \lambda$). If some $\lambda_i = 0$ (singular), adding $\lambda > 0$ shifts all eigenvalues positive, making the matrix invertible.
+
+</details>
+
+**Trade-off:** Regularization introduces bias (the solution is no longer exactly optimal for the training data) but reduces variance (the solution is more stable—small changes in data don't cause large swings in $\beta$).
+
+When $X^TX$ is nearly singular, there exists a direction $\mathbf{v}$ where $X^TX\mathbf{v} \approx \mathbf{0}$. The solution can "slide" along $\mathbf{v}$ with almost no change in the loss $\|X\beta - y\|^2$. Small noise in $y$ can push $\beta$ far along this flat direction.
+
+Adding $\lambda I$ penalizes movement in all directions equally. Now sliding along $\mathbf{v}$ costs $\lambda\|\mathbf{v}\|^2$, anchoring the solution near the origin. The flatter the original direction, the more regularization helps.
+
+**Geometric Interpretation:**
+- **Without regularization:** The loss landscape is a "valley" with a flat bottom (infinitely many minimum-loss solutions)
+- **With regularization:** Adding $\lambda\|\beta\|^2$ adds curvature, turning the valley into a "bowl" with a unique minimum
+
+**Connection to Minimum Norm:** The ridge solution converges to the minimum norm solution as $\lambda \to 0^+$:
+$$\lim_{\lambda \to 0^+} (X^TX + \lambda I)^{-1}X^T y = X^+ y$$
+where $X^+$ is the Moore-Penrose pseudo-inverse.
+
+### Effective Rank and Low-Rank Approximation
+
+In deep learning, matrices often have **full rank mathematically** but behave like **low-rank matrices** due to noise or correlation.
+
+The Singular Value Decomposition reveals the "true" structure:
+
+$$A = U \Sigma V^T$$
+
+where $\Sigma = \text{diag}(\sigma_1, \sigma_2, \ldots, \sigma_r)$ with $\sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r > 0$.
+
+**Mathematical rank:** Count of non-zero singular values.
+
+**Effective rank:** Count of singular values **significantly larger than the noise floor**.
+
+**Example:** If singular values are $[10, 8, 0.001, 0.0002]$:
+- Mathematical rank: 4
+- Effective rank: 2 (only $\sigma_1, \sigma_2$ carry meaningful information)
+
+The **Eckart-Young theorem** states that the best rank-$k$ approximation (in Frobenius or spectral norm) is:
+
+$$A_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$$
+
+Setting small singular values to zero creates a "clean" matrix, used for:
+- **Compression:** Store only the top $k$ components
+- **Denoising:** Remove low-energy (noisy) components
+- **Regularization:** Truncated SVD as implicit regularization
 
 ---
 
@@ -649,36 +707,6 @@ If $A\mathbf{x} = A\mathbf{y}$, then $A(\mathbf{x} - \mathbf{y}) = \mathbf{0}$. 
 Alternatively: multiply both sides by $A^{-1}$: $A^{-1}A\mathbf{x} = A^{-1}A\mathbf{y}$, giving $\mathbf{x} = \mathbf{y}$.
 
 </details>
-
----
-
-## Summary
-
-**Invertibility fundamentals:**
-- A square matrix $A$ is **invertible** if $AA^{-1} = A^{-1}A = I$; the inverse is unique when it exists
-- Non-square matrices cannot be invertible: tall matrices aren't onto, wide matrices aren't one-to-one
-- For non-square systems, the **pseudo-inverse** provides the least-squares best answer
-
-**Equivalent conditions (Invertible Matrix Theorem):**
-- Full rank ($\text{rank}(A) = n$)
-- Linearly independent columns (and rows)
-- Trivial nullspace: $N(A) = \{\mathbf{0}\}$
-- Non-zero determinant: $\det(A) \neq 0$
-- Column space spans $\mathbb{R}^n$: $C(A) = \mathbb{R}^n$
-
-**Four fundamental subspaces view:**
-- Invertible: all four subspaces have "perfect" dimensions (column/row space = $\mathbb{R}^n$, nullspaces = $\{\mathbf{0}\}$)
-- Singular: some dimension collapses (non-trivial nullspace), some outputs unreachable (column space $\subsetneq \mathbb{R}^n$)
-
-**Computing and testing:**
-- Gauss-Jordan elimination: row-reduce $[A \mid I]$ to $[I \mid A^{-1}]$
-- The $2 \times 2$ formula: $A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$
-- Determinant test: $\det(A) = 0$ iff the transformation collapses volume to zero
-
-**Applications:**
-- Linear regression requires $(X^TX)^{-1}$; singular $X^TX$ means non-unique coefficients
-- Ridge regression adds $\lambda I$ to eliminate the nullspace, guaranteeing invertibility
-- Condition number $\kappa = \sigma_{\max}/\sigma_{\min}$ measures numerical stability; high $\kappa$ amplifies errors
 
 ---
 

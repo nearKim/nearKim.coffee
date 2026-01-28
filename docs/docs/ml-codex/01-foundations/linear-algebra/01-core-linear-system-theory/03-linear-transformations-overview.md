@@ -247,6 +247,16 @@ Think of the input space as having a certain "budget" of dimensions. A linear tr
 
 No dimension can be created or lost. They're redistributed between "preserved" and "destroyed."
 
+**Conservation of Information:**
+
+| Component | Role | ML Interpretation |
+|-----------|------|-------------------|
+| Input dimension $n$ | Total information entering | Feature space dimension |
+| Rank $r$ | Information that survives | Dimensions the model uses |
+| Nullity $n - r$ | Information destroyed | Dimensions the model ignores |
+
+See [The Four Fundamental Subspaces](./01-vector-spaces-overview.md#the-four-fundamental-subspaces) for detailed proofs and the complete subspace picture.
+
 ![Rank-Nullity visualization](/img/ml-codex/01-foundations/linear-algebra/01-core-linear-system-theory/linear-transformations/rank_nullity.jpg)
 
 *Figure: The Rank-Nullity Theorem visualized. The domain decomposes into kernel (destroyed dimensions) and a complement (preserved dimensions). The preserved dimensions map isomorphically onto the image.*
@@ -334,6 +344,8 @@ $T$ is invertible $\iff$ $\ker(T) = \{0\}$ $\iff$ $\text{rank}(T) = n$ $\iff$ $\
 | **Surjective** | $\text{im}(T) = W$ | Rank = number of rows |
 | **Invertible** | Both | Square matrix with rank = $n$ |
 
+For the complete list of 14 equivalent conditions (including determinant, eigenvalues, and the four fundamental subspaces), see [The Invertible Matrix Theorem](./02-matrix-inverse-overview.md#conditions-for-invertibility).
+
 ---
 
 ## Standard Transformations Gallery
@@ -411,6 +423,30 @@ $$(S \circ T)(x) = S(T(x)) = S(Ax) = B(Ax) = (BA)x$$
 
 ---
 
+## Summary
+
+**Fundamental definitions:**
+- A **linear transformation** $T: V \to W$ preserves addition ($T(u+v) = T(u) + T(v)$) and scalar multiplication ($T(cv) = cT(v)$)
+- Every linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ has a unique $m \times n$ **matrix** with columns $T(e_1), \ldots, T(e_n)$
+
+**Kernel and Image:**
+- **Kernel** $\ker(T) = \{v : T(v) = 0\}$: vectors destroyed (mapped to zero)
+- **Image** $\text{im}(T) = \{T(v) : v \in V\}$: all possible outputs
+
+**The conservation law:**
+- **Rank-Nullity Theorem:** $\dim(V) = \dim(\ker T) + \dim(\text{im } T)$
+- Input dimensions are either preserved (image) or destroyed (kernel)—no dimensions created or lost
+
+**Injectivity and surjectivity:**
+- **Injective** (one-to-one) $\iff$ $\ker(T) = \{0\}$ $\iff$ rank = number of columns
+- **Surjective** (onto) $\iff$ $\text{im}(T) = W$ $\iff$ rank = number of rows
+- **Invertible** $\iff$ both $\iff$ square matrix with full rank
+
+**Composition:**
+- $S \circ T$ has matrix $BA$ (order reversed: last applied goes first)
+
+---
+
 ## Applications in Data Science and Machine Learning
 
 Linear transformations appear throughout machine learning, often disguised as matrices or "layers."
@@ -418,6 +454,14 @@ Linear transformations appear throughout machine learning, often disguised as ma
 ### Neural Network Layers
 
 Each linear layer in a neural network is a linear transformation $y = Wx + b$. Without the bias $b$, it's purely linear. The weight matrix $W \in \mathbb{R}^{m \times n}$ transforms $n$-dimensional inputs to $m$-dimensional outputs.
+
+**Layer Types by Shape:**
+
+| Layer Type | Shape | Behavior |
+|------------|-------|----------|
+| **Expansion** ($m > n$) | Skinny | Embeds into higher-dim space; cannot reach all of $\mathbb{R}^m$ |
+| **Compression** ($m < n$) | Fat | Dimensionality reduction; non-trivial nullspace guaranteed |
+| **Square** ($m = n$) | Square | Can be invertible (if full rank) |
 
 The linearity of $W$ has important consequences:
 - **Response to sums**: The network's response to a sum of inputs equals the sum of responses. This property is exploited in understanding gradients and backpropagation
@@ -427,7 +471,7 @@ The linearity of $W$ has important consequences:
 
 When we say a neural network layer is "a weight matrix $W$," we're using the Matrix Representation Theorem implicitly. Training the network means finding the right columns: where should each input feature direction map?
 
-A deep neural network (without nonlinearities) computes $W_n W_{n-1} \cdots W_2 W_1 x$. This is just one big linear transformation. Without nonlinear activation functions, depth adds no expressive power.
+A deep neural network (without nonlinearities) computes $W_n W_{n-1} \cdots W_2 W_1 x$. This is just one big linear transformation. Without nonlinear activation functions, depth adds no expressive power—the product of matrices is still a single matrix.
 
 ### Principal Component Analysis (PCA)
 
@@ -443,7 +487,22 @@ Any linear dimensionality reduction from $\mathbb{R}^n$ to $\mathbb{R}^k$ (where
 - The kernel has dimension $n - k$ (information destroyed)
 - The image has dimension $k$ (information preserved)
 
-An autoencoder with a hidden layer of size $k$ has rank at most $k$. The nullspace dimension $n - k$ represents the compression: information that can't be distinguished after encoding.
+### Autoencoders: The Bottleneck Architecture
+
+Consider a linear autoencoder: Input ($n$) → Encoder → Latent ($k$) → Decoder → Output ($n$).
+
+| Component | Matrix Shape | Type | Role |
+|-----------|--------------|------|------|
+| **Encoder** $E$ | $k \times n$ | Fat matrix | Compresses high-dim input to low-dim code |
+| **Decoder** $D$ | $n \times k$ | Skinny matrix | Embeds low-dim code back into high-dim space |
+| **Full system** $DE$ | $n \times n$ | Square | Reconstruction (ideally close to identity on data manifold) |
+
+**Information flow:**
+- **Encoder (Fat):** Massive information destruction—nullspace has dimension $\geq n - k$. Many inputs map to the same code.
+- **Decoder (Skinny):** Cannot reach all of $\mathbb{R}^n$—output lives in a $k$-dimensional subspace.
+- **Bottleneck:** The rank of the reconstruction $DE$ is bounded by $k$, regardless of $n$.
+
+The bottleneck forces the network to learn a compressed representation. The nullspace of the encoder contains all variations the network "ignores." For a well-trained autoencoder on natural images, this nullspace should contain noise while the image's essential structure survives.
 
 ### Feature Engineering
 
@@ -451,20 +510,6 @@ Transforming raw features $x$ to engineered features $\phi(x)$ often involves li
 - **Standardization**: $z = \frac{x - \mu}{\sigma}$ (affine, nearly linear)
 - **Whitening**: $z = \Sigma^{-1/2}(x - \mu)$ (linear after centering)
 - **Random projections**: $z = Rx$ for random matrix $R$
-
----
-
-## Summary
-
-- A **linear transformation** $T: V \to W$ is a function that preserves addition ($T(u+v) = T(u) + T(v)$) and scalar multiplication ($T(cv) = cT(v)$)
-- Every linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ can be represented by a unique $m \times n$ **matrix** whose columns are $T(e_1), \ldots, T(e_n)$
-- The **kernel** $\ker(T) = \{v : T(v) = 0\}$ is the subspace of vectors that get "destroyed" (mapped to zero)
-- The **image** $\text{im}(T) = \{T(v) : v \in V\}$ is the subspace of all possible outputs
-- The **Rank-Nullity Theorem** states $\dim(V) = \dim(\ker T) + \dim(\text{im } T)$ (dimension is conserved)
-- A transformation is **injective** (one-to-one) iff $\ker(T) = \{0\}$, and **surjective** (onto) iff $\text{im}(T) = W$
-- **Composition** of linear transformations corresponds to **matrix multiplication**: if $T$ has matrix $A$ and $S$ has matrix $B$, then $S \circ T$ has matrix $BA$
-
-The Rank-Nullity Theorem is the fundamental conservation law: input dimensions are either preserved (going to the image) or destroyed (going to the kernel), with no dimensions created or lost.
 
 ---
 
