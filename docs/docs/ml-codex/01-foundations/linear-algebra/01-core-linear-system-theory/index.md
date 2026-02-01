@@ -40,11 +40,13 @@ Focus on fundamental algebraic structures and solution spaces.
 - Independence, basis, and dimension
 - Dimensions of the Four Subspaces
 
-### Chapter 4: Orthogonality
-- Orthogonality of the Four Subspaces
-- Projections
-- Least squares approximations
-- Orthonormal bases and Gram-Schmidt
+### Chapter 5: Determinants
+- Definition and the three defining properties
+- Cofactor expansion and computation via elimination
+- Properties: $\det(AB) = \det(A)\det(B)$, $\det(A^T) = \det(A)$
+- Geometric interpretation: volume, orientation, Jacobian
+- Cofactors, adjugate, and Cramer's rule
+- The characteristic polynomial and connection to eigenvalues
 
 ## Learning Objectives
 
@@ -53,6 +55,7 @@ Focus on fundamental algebraic structures and solution spaces.
 - Learn the Four Fundamental Subspaces
 - Work with linear transformations
 - Perform matrix multiplication and LU decomposition
+- Compute and interpret determinants geometrically
 
 ## Navigation
 
@@ -61,5 +64,6 @@ Focus on fundamental algebraic structures and solution spaces.
 - [Matrix Inverse Overview](02-matrix-inverse-overview.md)
 - [Linear Transformations Overview](03-linear-transformations-overview.md)
 - [Matrix Operations Overview](04-matrix-operations-overview.md)
+- [Determinants](05-determinants-overview.md)
 - [Problems](problems.md)
 - [Python Implementation](implementation.md)

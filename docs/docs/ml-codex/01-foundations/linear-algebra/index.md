@@ -8,59 +8,42 @@ sidebar_position: 1
 
 ## Introduction
 
-This comprehensive linear algebra course is structured around Gilbert Strang's "Introduction to Linear Algebra" and is specifically designed for machine learning practitioners. The material is organized into four major sections, each covering fundamental and advanced topics.
+This linear algebra course is structured around Gilbert Strang's *Introduction to Linear Algebra* and designed for machine learning practitioners. The material is organized into three sections progressing from foundational theory through spectral analysis to applied methods.
 
-## Course Structure
-
-The course is divided into **4 sections**, each containing:
-
-1. **High-level Overview** - Conceptual understanding with intuition
-2. **Mathematical Deep-dive** - Rigorous proofs and theorems
-3. **Problems** - University-level exam questions
-4. **Python Implementation** - Computational examples and code
-
-## The Four Sections
+## The Three Sections
 
 ### [Section 1: Core Linear System Theory](core-linear-system-theory/)
 
-Focus on fundamental algebraic structures and solution spaces.
+Fundamental algebraic structures and solution spaces.
 
 **Topics:**
-- Vector spaces and subspaces
-- Linear independence, basis, and dimension
+- Vector spaces, subspaces, basis, dimension, and rank
 - The Four Fundamental Subspaces
-- Linear transformations
-- Matrix multiplication and LU decomposition
+- Matrix inverse and invertibility
+- Linear transformations (kernel, image, rank-nullity)
+- Matrix multiplication (four interpretations), LU decomposition, special matrices
+- Determinants: properties, geometric interpretation, characteristic polynomial
 
 ### [Section 2: Spectral Theory & Matrix Decompositions](spectral-theory/)
 
-Focus on eigenvalue analysis and matrix factorizations.
+Eigenvalue analysis, positive definiteness, and the SVD.
 
 **Topics:**
-- Eigenvalues and eigenvectors
-- Diagonalization and powers of matrices
-- Matrix exponentials and differential equations
-- Singular Value Decomposition (SVD)
-- Positive definite matrices
+- Eigenvalues, eigenvectors, and diagonalization
+- Spectral theorem for symmetric matrices
+- Positive definite matrices: tests, quadratic forms, Cholesky, Rayleigh quotient
+- Singular Value Decomposition: geometry, low-rank approximation, pseudoinverse
 
-### [Section 3: Geometric & Optimization Methods](geometric-optimization/)
+### [Section 3: Applied Linear Algebra](applied-linear-algebra/)
 
-Focus on orthogonality, projections, and optimization.
-
-**Topics:**
-- Orthogonal vectors and subspaces
-- Projections and least squares
-- Gram-Schmidt process
-- Optimization: minima, maxima, and saddle points
-- Finite Element Method
-
-### [Section 4: Computational Methods & Applications](computational-methods/)
-
-Focus on numerical algorithms and advanced applications.
+Orthogonality, projections, least squares, optimization, and numerical computation.
 
 **Topics:**
-- Matrix norms and condition numbers
-- Eigenvalue computation algorithms
-- Iterative methods for solving linear systems
-- Linear programming and the Simplex Method
-- Network models and game theory
+- Orthogonal vectors and subspaces, orthogonality of the four subspaces
+- Projections onto lines and subspaces, projection matrices
+- Least squares, linear regression, QR decomposition, Gram-Schmidt
+- Gradient descent and condition number, conjugate gradient
+- SGD, momentum methods (Nesterov, Adam), convexity
+- Constrained optimization: Lagrange multipliers, KKT systems
+- Numerical stability, matrix norms, iterative solvers, sparse techniques
+- Randomized methods: randomized SVD, random projections (Johnson-Lindenstrauss)

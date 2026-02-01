@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Section 3: Problems
 
-University-level exam questions for Geometric & Optimization Methods.
+University-level exam questions for Applied Linear Algebra.
 
 ## Orthogonality
 
@@ -71,17 +71,64 @@ Use Lagrange multipliers to minimize f(x, y) = x² + y² subject to x + y = 1.
 
 **Difficulty**: Hard
 
-## Challenge Problems
+## Norms and Conditioning
 
 ### Problem 6.1
+Compute ||A||₁, ||A||₂, and ||A||∞ for A = [[1, 2], [3, 4]].
+
+**Difficulty**: Medium
+
+### Problem 6.2
+Show that ||AB|| ≤ ||A|| ||B|| for any compatible matrix norm.
+
+**Difficulty**: Medium
+
+### Problem 6.3
+Compute the condition number κ₂(A) for A = [[1, 1], [1, 1+ε]] where ε is small.
+
+**Difficulty**: Hard
+
+## Iterative Methods and Eigenvalue Computation
+
+### Problem 7.1
+Apply one iteration of Jacobi method to solve:
+3x + y = 5
+x + 2y = 5
+starting from x₀ = [0, 0].
+
+**Difficulty**: Easy
+
+### Problem 7.2
+Apply two iterations of the power method to A = [[2, 1], [1, 2]] starting with x₀ = [1, 0].
+
+**Difficulty**: Medium
+
+### Problem 7.3
+Explain why the power method fails for A = [[0, 1], [1, 0]].
+
+**Difficulty**: Medium
+
+## Challenge Problems
+
+### Problem 8.1
 Prove that the four fundamental subspaces come in orthogonal pairs.
 
 **Difficulty**: Very Hard
 
-### Problem 6.2
+### Problem 8.2
 Derive the normal equations from first principles using calculus.
 
 **Difficulty**: Hard
+
+### Problem 8.3
+Prove that the Jacobi iteration for a strictly diagonally dominant matrix converges.
+
+**Difficulty**: Very Hard
+
+### Problem 8.4
+Implement the conjugate gradient method and analyze its convergence.
+
+**Difficulty**: Very Hard
 
 ---
 
