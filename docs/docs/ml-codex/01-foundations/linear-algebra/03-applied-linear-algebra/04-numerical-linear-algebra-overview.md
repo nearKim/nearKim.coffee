@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Numerical Linear Algebra
 
+## The Central Question: When Can We Trust the Computer's Answer?
+
+Computers use finite-precision arithmetic, so every computation introduces rounding errors. When can we trust the result? The condition number $\kappa(A)$ answers this: it measures how much input perturbations are amplified in the output. A backward-stable algorithm (one that gives the exact answer to a slightly perturbed problem) combined with a well-conditioned matrix gives reliable results. Understanding this interplay is essential for diagnosing numerical failures in ML training and large-scale linear solvers.
+
 ## Topics to Cover
 
 ### Floating-Point Arithmetic and Error
@@ -70,6 +74,8 @@ sidebar_position: 5
 - Cross-reference to [MIT 18.065 Lecture 13: Randomized Matrix Multiplication](https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/)
 
 ### Summary
+
+**Answering the Central Question:** You can trust the computer's answer when the algorithm is backward-stable and the problem is well-conditioned ($\kappa(A)$ is small). A relative perturbation $\epsilon$ in the input causes at most $\kappa \cdot \epsilon$ relative error in the output, so you lose roughly $\log_{10}(\kappa)$ digits of accuracy. LU with partial pivoting, QR, and Cholesky are all backward-stable. For large sparse systems where direct methods are too expensive ($O(n^3)$), iterative methods (conjugate gradient, Lanczos) and randomized algorithms provide efficient alternatives.
 
 ### Applications in Data Science and Machine Learning
 - **Large-scale PCA:** Lanczos / randomized SVD instead of full eigendecomposition — computes top-$k$ singular values of million-dimensional matrices

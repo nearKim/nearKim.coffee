@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Orthogonality and Projections
 
+## The Central Question: What Is the Closest Point in a Subspace?
+
+Given a vector $b$ that does not lie in a subspace $S$, what point in $S$ is nearest to $b$? The answer is the orthogonal projection: drop a perpendicular from $b$ onto $S$. This geometric idea underlies least squares regression (project $b$ onto the column space of $A$), Gram-Schmidt orthogonalization, and the orthogonal complement relationships among the four fundamental subspaces.
+
 ## Topics to Cover
 
 ### Orthogonal Vectors and Subspaces
@@ -37,6 +41,8 @@ sidebar_position: 2
 - $(I - P)$ projects onto the orthogonal complement
 
 ### Summary
+
+**Answering the Central Question:** The closest point in a subspace $S$ to a vector $b$ is the orthogonal projection $p = Pb$, where $P = A(A^TA)^{-1}A^T$ is the projection matrix. The error $e = b - p$ is perpendicular to $S$, making $\|b - p\|$ the minimum possible distance. This is equivalent to solving the normal equations $A^TA\hat{x} = A^Tb$, which is exactly the least squares problem.
 
 ### Applications in Data Science and Machine Learning
 - **Linear regression as projection:** $\hat{y} = Pb$ projects the response vector onto the column space of the feature matrix

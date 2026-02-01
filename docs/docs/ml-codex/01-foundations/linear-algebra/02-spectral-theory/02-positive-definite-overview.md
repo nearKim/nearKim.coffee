@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Positive Definite Matrices
 
+## The Central Question: When Does a Quadratic Form Always Curve Upward?
+
+The quadratic form $f(x) = x^TAx$ generalizes the idea of $ax^2$ to multiple dimensions. When is this bowl-shaped (always positive), guaranteeing a unique minimum? Positive definiteness answers this, connecting eigenvalue signs, pivot signs, Cholesky factorization, and the curvature of loss functions in optimization.
+
 ## Topics to Cover
 
 ### Quadratic Forms and Geometry
@@ -45,6 +49,8 @@ sidebar_position: 3
 - Condition number $\kappa = \lambda_{\max}/\lambda_{\min}$ = elongation of the ellipsoid
 
 ### Summary
+
+**Answering the Central Question:** A quadratic form $x^TAx$ always curves upward (is always positive for $x \neq 0$) exactly when $A$ is positive definite. Five equivalent tests characterize this: all eigenvalues positive, all pivots positive, all leading principal minors positive, $A = R^TR$ for some $R$ with independent columns, and $x^TAx > 0$ for all nonzero $x$. Cholesky factorization ($A = LL^T$) is the computational signature of positive definiteness.
 
 ### Applications in Data Science and Machine Learning
 - **Optimization:** Hessian positive definite ⇔ strict local minimum; condition number controls convergence speed of gradient descent

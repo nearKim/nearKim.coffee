@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 6
 ---
 
 # Matrix Operations
@@ -363,6 +363,8 @@ Each factorization exploits different structure. The choice depends on the matri
 - **Symmetric:** Real eigenvalues, orthogonal eigenvectors; spectral theorem gives $S = Q\Lambda Q^T$
 - **Positive definite:** All eigenvalues positive; Cholesky $S = LL^T$ at half the cost of LU
 - **Orthogonal:** $Q^{-1} = Q^T$; preserves lengths and angles; numerically ideal
+
+**Answering the Central Question:** We compute with matrices efficiently by factoring them into structured pieces (triangular, orthogonal, diagonal) that are cheap to work with. LU decomposition is the workhorse for solving linear systems at $O(\frac{2}{3}n^3)$, Cholesky exploits symmetry and positive definiteness at half the cost, and QR provides numerical stability for least squares problems.
 
 ---
 

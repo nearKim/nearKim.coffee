@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Eigenvalues, Eigenvectors, and Diagonalization
 
+## The Central Question: When Does a Matrix Act Like Simple Scaling?
+
+Most matrices rotate, stretch, and shear vectors in complicated ways. But certain special directions survive unchanged except for scaling: $Av = \lambda v$. Finding these eigenvectors and eigenvalues reveals the matrix's intrinsic behavior, enabling diagonalization, spectral analysis, and the tools behind PCA, PageRank, and dynamical systems.
+
 ## Topics to Cover
 
 ### The Eigenvalue Equation
@@ -40,6 +44,8 @@ sidebar_position: 2
 - Stability conditions: real parts of eigenvalues
 
 ### Summary
+
+**Answering the Central Question:** A matrix acts like simple scaling along its eigenvector directions. When $A$ has $n$ independent eigenvectors, it diagonalizes as $A = PDP^{-1}$, reducing matrix powers, exponentials, and dynamical systems to scalar operations on the eigenvalues. For symmetric matrices, the spectral theorem guarantees this decomposition always exists with orthogonal eigenvectors.
 
 ### Applications in Data Science and Machine Learning
 - **PCA foundation:** eigenvalues of covariance matrix = variance along principal directions

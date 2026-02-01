@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Singular Value Decomposition
 
+## The Central Question: What Is the Best Low-Rank Approximation of Any Matrix?
+
+Eigendecomposition requires square matrices. But data matrices are typically rectangular ($m$ samples by $n$ features). The SVD works for any matrix, decomposing it as $A = U\Sigma V^T$: rotate, stretch along axes, rotate again. The Eckart-Young theorem proves that truncating the smallest singular values gives the optimal low-rank approximation, which is the mathematical foundation of PCA, latent semantic analysis, and data compression.
+
 ## Topics to Cover
 
 ### Motivation: Beyond Eigenvalues
@@ -49,6 +53,8 @@ sidebar_position: 4
 - Cross-reference to [Matrix Inverse](../01-core-linear-system-theory/02-matrix-inverse-overview.md) condition number section
 
 ### Summary
+
+**Answering the Central Question:** The best rank-$k$ approximation to any matrix $A$ is obtained by keeping only the $k$ largest singular values in the SVD: $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$. The Eckart-Young theorem guarantees this is optimal in both the Frobenius and spectral norms. The singular values quantify how much "energy" each component carries, the condition number $\kappa = \sigma_1/\sigma_r$ measures numerical sensitivity, and the pseudoinverse $A^+ = V\Sigma^+ U^T$ extends the inverse to non-square and singular matrices.
 
 ### Applications in Data Science and Machine Learning
 - **PCA:** SVD of the centered data matrix directly gives principal components (no need to form $X^TX$)

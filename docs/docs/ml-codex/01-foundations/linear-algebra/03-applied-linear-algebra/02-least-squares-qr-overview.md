@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Least Squares and QR Decomposition
 
+## The Central Question: What Is the Best Approximate Solution When $Ax = b$ Has No Exact Answer?
+
+When there are more equations than unknowns, $Ax = b$ typically has no solution. The least squares approach finds the $\hat{x}$ that minimizes $\|Ax - b\|^2$, which is the projection of $b$ onto the column space of $A$. The normal equations, QR decomposition, and Gram-Schmidt process provide three ways to compute this, with different tradeoffs between speed and numerical stability.
+
 ## Topics to Cover
 
 ### The Least Squares Problem
@@ -45,6 +49,8 @@ sidebar_position: 3
 - Connection to SVD truncation: ridge suppresses small singular values smoothly
 
 ### Summary
+
+**Answering the Central Question:** The best approximate solution is $\hat{x} = (A^TA)^{-1}A^Tb$, the least squares solution that minimizes $\|Ax - b\|^2$. This is geometrically the projection of $b$ onto $C(A)$. The normal equations give this directly but square the condition number. QR decomposition ($A = QR$, then $R\hat{x} = Q^Tb$) avoids forming $A^TA$ and is numerically stable, making it the default in practice.
 
 ### Applications in Data Science and Machine Learning
 - **Ordinary Least Squares (OLS):** the foundation of linear regression

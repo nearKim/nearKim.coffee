@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 # Matrix Inverse and Invertibility
@@ -314,6 +314,8 @@ The tiny $\sigma_{\min}$ signals a nearly flat direction—small changes in $\ma
 - The $2 \times 2$ formula: $A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$
 - Determinant test: $\det(A) = 0$ iff the transformation collapses volume to zero
 - Condition number $\kappa = \sigma_{\max}/\sigma_{\min}$ measures numerical stability; high $\kappa$ amplifies errors
+
+**Answering the Central Question:** A transformation can be undone exactly when the matrix is invertible (full rank, trivial nullspace, nonzero determinant). When it cannot be inverted, the pseudo-inverse provides the best substitute: least-squares solution for overdetermined systems, minimum-norm solution for underdetermined ones.
 
 ---
 

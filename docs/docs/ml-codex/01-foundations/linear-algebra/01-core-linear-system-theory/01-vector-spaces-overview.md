@@ -10,7 +10,7 @@ import TOCInline from '@theme/TOCInline';
 
 ---
 
-## The Problem of Solving Linear Equations
+## The Central Question: What Structure Does the Solution Set of $Ax = b$ Have?
 
 We want to solve a system of $m$ linear equations in $n$ unknowns, written as $Ax=b$. In the "row picture," each of these $m$ equations defines a hyperplane in $n$-dimensional space. The goal is to find a solution $x$, which is a single point of intersection that lies on *all* $m$ of these hyperplanes.
 
@@ -700,6 +700,8 @@ $$\text{rank}(A^T A) = n - \dim(N(A^T A)) = n - \dim(N(A)) = \text{rank}(A)$$
 - $\text{rank}(G) = 2$ (also rank-deficient!)
 
 This explains why perfect multicollinearity in regression makes the problem unsolvable: $X^T X$ becomes singular.
+
+**Answering the Central Question:** The solution set of $Ax = b$ is completely determined by the four fundamental subspaces of $A$. When $b \in C(A)$, solutions exist and form a coset $x_p + N(A)$: one particular solution plus any vector in the nullspace. The rank $r$ controls everything: it determines the dimensions of all four subspaces, dictates whether solutions exist (is $b$ in the column space?) and whether they are unique (is the nullspace trivial?).
 
 ---
 

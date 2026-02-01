@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 # Linear Transformations
@@ -444,6 +444,8 @@ $$(S \circ T)(x) = S(T(x)) = S(Ax) = B(Ax) = (BA)x$$
 
 **Composition:**
 - $S \circ T$ has matrix $BA$ (order reversed: last applied goes first)
+
+**Answering the Central Question:** A function that preserves the structure of linear algebra (addition and scalar multiplication) is a linear transformation, and every such function between finite-dimensional spaces is uniquely represented by a matrix. Its kernel and image reveal exactly what information is preserved and what is destroyed, governed by the rank-nullity theorem: $\dim(V) = \dim(\ker T) + \dim(\text{im } T)$.
 
 ---
 

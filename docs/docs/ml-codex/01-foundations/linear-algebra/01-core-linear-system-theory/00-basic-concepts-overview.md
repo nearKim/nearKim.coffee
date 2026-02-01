@@ -10,7 +10,7 @@ import TOCInline from '@theme/TOCInline';
 
 -----
 
-## Why These Concepts Matter
+## The Central Question: What Are the Building Blocks of Linear Algebra?
 
 Before diving into vector spaces and linear transformations, we need to establish the fundamental operations of linear algebra. These concepts appear everywhere in machine learning: from computing similarity between word embeddings to understanding how data varies together.
 
@@ -445,4 +445,6 @@ The correlation of 1 indicates **perfect positive linear relationship**.
 | **Eigenvalue/Eigenvector** | Scaling directions of a matrix | $A\mathbf{v} = \lambda\mathbf{v}$ |
 | **Covariance Matrix** | Pairwise covariances | $\Sigma = \frac{1}{n}\tilde{X}^T\tilde{X}$ |
 | **Correlation Matrix** | Normalized covariances | $R = D^{-1}\Sigma D^{-1}$ |
+
+**Answering the Central Question:** The building blocks of linear algebra are inner products (measuring similarity and projection), outer products (building rank-1 matrices), norms (measuring size), transpose and trace (structural operations), and covariance/correlation (measuring how variables move together). These operations form the vocabulary of every ML algorithm, from computing cosine similarity in embeddings to analyzing the spread of data through covariance matrices.
 

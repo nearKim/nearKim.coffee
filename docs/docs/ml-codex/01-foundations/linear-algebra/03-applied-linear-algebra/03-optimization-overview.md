@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Optimization and Linear Algebra
 
+## The Central Question: How Does Matrix Structure Control Optimization?
+
+Minimizing a function requires understanding its curvature, and curvature is encoded in matrices (the Hessian). The eigenvalues of the Hessian determine whether you are at a minimum, maximum, or saddle point. The condition number $\kappa$ controls how fast gradient descent converges. Positive definiteness guarantees a unique global minimum. Every key idea in optimization, from gradient descent to conjugate gradient to Adam, has a linear algebra explanation.
+
 ## Topics to Cover
 
 ### Quadratic Functions and Their Geometry
@@ -64,6 +68,8 @@ $$\begin{bmatrix} H & A^T \\ A & 0 \end{bmatrix} \begin{bmatrix} x \\ \lambda \e
 - Why ML loves convexity: linear regression, Ridge, SVM (dual), logistic regression loss
 
 ### Summary
+
+**Answering the Central Question:** Matrix structure controls optimization at every level. The Hessian's eigenvalues classify critical points (all positive = minimum, mixed = saddle). The condition number $\kappa = \lambda_{\max}/\lambda_{\min}$ governs convergence speed: gradient descent converges in $O(\kappa)$ iterations, conjugate gradient in $O(\sqrt{\kappa})$. Preconditioning improves $\kappa$ to accelerate convergence. SGD and momentum methods address the practical challenges of large-scale optimization while respecting the same underlying linear algebra.
 
 ### Applications in Data Science and Machine Learning
 - **Training neural networks:** loss landscape curvature (Hessian eigenvalues) determines trainability; saddle points dominate in high dimensions
