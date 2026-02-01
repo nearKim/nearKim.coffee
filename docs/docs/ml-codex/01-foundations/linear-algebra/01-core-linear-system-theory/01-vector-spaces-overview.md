@@ -139,7 +139,7 @@ In a data matrix where rows are samples and columns are features:
 
 ---
 
-## The Four Fundamental Subspaces
+## Defining the Four Subspaces
 
 To answer the questions we stated at first, let's consider the $m \times n$ matrix $A$ below. For our examples, we will use this $3 \times 3$ matrix $A$ with **rank $r=2$**:
 

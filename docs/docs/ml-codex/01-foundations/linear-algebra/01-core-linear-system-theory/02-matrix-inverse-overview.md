@@ -102,7 +102,7 @@ For an $n \times n$ matrix $A$, the following statements are equivalent:
 
 ## Invertibility and the Four Fundamental Subspaces
 
-The four fundamental subspaces tell the complete story of when and why a matrix is invertible. See [The Four Fundamental Subspaces](./01-vector-spaces-overview.md#the-four-fundamental-subspaces) for detailed definitions and basis-finding procedures.
+The four fundamental subspaces tell the complete story of when and why a matrix is invertible. See [Defining the Four Subspaces](./01-vector-spaces-overview.md#defining-the-four-subspaces) for detailed definitions and basis-finding procedures.
 
 ### When $A$ is Invertible
 

@@ -255,7 +255,7 @@ No dimension can be created or lost. They're redistributed between "preserved" a
 | Rank $r$ | Information that survives | Dimensions the model uses |
 | Nullity $n - r$ | Information destroyed | Dimensions the model ignores |
 
-See [The Four Fundamental Subspaces](./01-vector-spaces-overview.md#the-four-fundamental-subspaces) for detailed proofs and the complete subspace picture.
+See [Defining the Four Subspaces](./01-vector-spaces-overview.md#defining-the-four-subspaces) for detailed proofs and the complete subspace picture.
 
 ![Rank-Nullity visualization](/img/ml-codex/01-foundations/linear-algebra/01-core-linear-system-theory/linear-transformations/rank_nullity.jpg)
 
