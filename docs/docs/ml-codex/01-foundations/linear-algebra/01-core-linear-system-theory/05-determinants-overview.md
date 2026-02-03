@@ -15,23 +15,15 @@ import TOCInline from '@theme/TOCInline';
 We want a single number that tells us whether a matrix is invertible, how it scales volume, and what its eigenvalues multiply to. That number is the **determinant**.
 
 Consider these scenarios:
-1. You need to know whether a linear system $Ax = b$ has a unique solution. The determinant answers this instantly: $\det(A) \neq 0$ means yes.
-2. A neural network layer transforms inputs through a weight matrix. How much does it expand or compress the space of activations? The determinant measures exactly this volume change.
-3. A normalizing flow maps a simple distribution to a complex one. To compute the transformed density, you need the Jacobian determinant of the mapping.
+1. A linear system $Ax = b$ has a unique solution if and only if $\det(A) \neq 0$.
+2. A neural network layer's weight matrix expands or compresses the space of activations by a factor of $|\det(W)|$.
+3. A normalizing flow requires the Jacobian determinant of the mapping to correctly transform probability densities.
 
 The determinant encodes invertibility, volume scaling, and orientation into one number. It connects algebra (is the matrix singular?) to geometry (how does the transformation change space?) to probability (how do densities transform?).
 
 ---
 
 ## Definition and the Three Properties
-
-Take the $2 \times 2$ matrix $A = \begin{bmatrix} 3 & 1 \\ 2 & 4 \end{bmatrix}$. Its determinant is:
-
-$$\det(A) = 3 \cdot 4 - 1 \cdot 2 = 10$$
-
-This tells us $A$ is invertible (nonzero determinant) and that $A$ scales areas by a factor of 10.
-
-Strang's approach defines the determinant through **three properties** that uniquely determine it for all square matrices:
 
 :::danger[Definition: The Determinant]
 The **determinant** is the unique function $\det: \mathbb{R}^{n \times n} \to \mathbb{R}$ satisfying:
@@ -161,7 +153,9 @@ The **singularity** test follows from elimination: if $A$ is singular, at least 
 
 ## Geometric Interpretation
 
-Take two column vectors $a_1 = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ and $a_2 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, and form $A = \begin{bmatrix} 3 & 1 \\ 0 & 2 \end{bmatrix}$. The determinant $\det(A) = 6$.
+Let two column vectors $a_1 = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, so:
+
+$A = \begin{bmatrix} 3 & 1 \\ 0 & 2 \end{bmatrix}, \det(A) = 6$.
 
 **Geometrically**, the columns of $A$ span a parallelogram in $\mathbb{R}^2$. The base is $\|a_1\| = 3$ and the height (perpendicular distance from $a_2$ to $a_1$) is 2. The area is $3 \times 2 = 6 = |\det(A)|$.
 
@@ -175,11 +169,17 @@ $$|\det(A)| = \text{volume of the parallelepiped spanned by } a_1, \ldots, a_n$$
 
 Three consequences follow immediately:
 
-**1. Zero determinant means collapse.** If the columns are linearly dependent, the parallelepiped collapses to a lower dimension and has zero volume. This is why $\det(A) = 0$ characterizes singular matrices.
+**1. Zero determinant means collapse.** 
 
-**2. The sign encodes orientation.** In $\mathbb{R}^2$, $\det(A) > 0$ means the columns $a_1, a_2$ form a counterclockwise (right-handed) pair. $\det(A) < 0$ means clockwise (left-handed). A row swap reverses orientation, consistent with Property 2.
+If the columns are linearly dependent, the parallelepiped collapses to a lower dimension and has zero volume. This is why $\det(A) = 0$ characterizes singular matrices.
 
-**3. Orthogonal matrices preserve volume.** If $Q$ is orthogonal, $|\det(Q)| = 1$. Its columns are orthonormal, so they span a unit cube with volume 1.
+**2. The sign encodes orientation.** 
+
+In $\mathbb{R}^2$, $\det(A) > 0$ means the columns $a_1, a_2$ form a counterclockwise (right-handed) pair. $\det(A) < 0$ means clockwise (left-handed). A row swap reverses orientation, consistent with Property 2.
+
+**3. Orthogonal matrices preserve volume.** 
+
+If $Q$ is orthogonal, $|\det(Q)| = 1$. Its columns are orthonormal, so they span a unit cube with volume 1.
 
 ### The Jacobian Determinant
 
