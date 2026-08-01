@@ -1,274 +1,227 @@
 /**
- * Modern, classy design system
+ * Site-wide design tokens and chrome
+ * Academic, minimal, modern
  */
 
-:root {
-  /* Color palette - Sophisticated and modern */
-  --ifm-color-primary: #1a73e8;
-  --ifm-color-primary-dark: #1557b0;
-  --ifm-color-primary-darker: #1251a3;
-  --ifm-color-primary-darkest: #0f4287;
-  --ifm-color-primary-light: #4b8ef1;
-  --ifm-color-primary-lighter: #5c9af3;
-  --ifm-color-primary-lightest: #8ab4f8;
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap');
 
-  /* Typography */
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  --ifm-heading-font-weight: 700;
+/*
+ * The palette is registered so it can interpolate. An unregistered custom property
+ * has no type, so the browser snaps between values instead of animating — that hard
+ * cut is what a theme toggle normally looks like. Registering as <color> lets the
+ * tokens themselves animate, and every rule reading them follows for free.
+ *
+ * initial-value is required by the spec but never renders: :root declares all seven
+ * below, so there is no state in which the fallback applies.
+ */
+@property --page-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000;
+}
+@property --page-ink-muted {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000;
+}
+@property --page-ink-faint {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000;
+}
+@property --page-rule {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000;
+}
+@property --page-link {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000;
+}
+@property --page-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #fff;
+}
+@property --page-surface {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #fff;
+}
+
+:root {
+  /* Page tokens (homepage + shared) */
+  --font-display: 'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Near-monochrome. Every gray clears 4.5:1 on the page ground. */
+  --page-ink: #111111;
+  --page-ink-muted: #545454;
+  --page-ink-faint: #6f6f6f;
+  --page-rule: #ebebeb;
+  --page-link: #1c3d5a;
+  --page-bg: #ffffff;
+  --page-surface: #f4f4f4;
+
+  /* Docusaurus primary — restrained ink blue, not Google blue */
+  --ifm-color-primary: #1c3d5a;
+  --ifm-color-primary-dark: #18344d;
+  --ifm-color-primary-darker: #163149;
+  --ifm-color-primary-darkest: #12283c;
+  --ifm-color-primary-light: #2a5578;
+  --ifm-color-primary-lighter: #3a6a90;
+  --ifm-color-primary-lightest: #5a8ab0;
+
+  --ifm-font-family-base: var(--font-body);
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  --ifm-heading-font-family: var(--font-display);
+  --ifm-heading-font-weight: 600;
   --ifm-font-weight-semibold: 600;
   --ifm-line-height-base: 1.7;
-
-  /* Spacing and layout */
-  --ifm-spacing-vertical: 2rem;
-  --ifm-global-radius: 8px;
-
-  /* Code blocks */
+  --ifm-global-radius: 4px;
   --ifm-code-font-size: 0.9em;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.04);
 
-  /* Transitions */
-  --ifm-transition-fast: 150ms;
-  --ifm-transition-slow: 300ms;
+  --ifm-background-color: var(--page-bg);
+  /* Solid, not translucent: the navbar no longer blurs what scrolls under it */
+  --ifm-navbar-background-color: var(--page-bg);
+  --ifm-footer-background-color: var(--page-bg);
+
+  --ifm-navbar-height: 3.5rem;
+  --ifm-navbar-shadow: none;
+  --ifm-navbar-link-color: var(--page-ink-muted);
+  --ifm-navbar-link-hover-color: var(--page-ink);
+  --ifm-link-color: var(--page-link);
+  --ifm-link-hover-color: #0f2438;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #8ab4f8;
-  --ifm-color-primary-dark: #6ba0f6;
-  --ifm-color-primary-darker: #5c96f5;
-  --ifm-color-primary-darkest: #2e78f2;
-  --ifm-color-primary-light: #a9c5fb;
-  --ifm-color-primary-lighter: #b8cffb;
-  --ifm-color-primary-lightest: #e5edfd;
+  --page-ink: #ededed;
+  --page-ink-muted: #a8a8a8;
+  --page-ink-faint: #8a8a8a;
+  --page-rule: #262626;
+  --page-link: #9ec0dc;
+  --page-bg: #0d0d0d;
+  --page-surface: #191919;
 
-  --ifm-background-color: #0d1117;
-  --ifm-background-surface-color: #161b22;
-  --ifm-navbar-background-color: rgba(13, 17, 23, 0.95);
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  --ifm-color-primary: #9ec0dc;
+  --ifm-color-primary-dark: #86b0d2;
+  --ifm-color-primary-darker: #7aa8cd;
+  --ifm-color-primary-darkest: #568eb8;
+  --ifm-color-primary-light: #b6d0e6;
+  --ifm-color-primary-lighter: #c2d8ea;
+  --ifm-color-primary-lightest: #e6f0f7;
+
+  --ifm-background-color: var(--page-bg);
+  --ifm-background-surface-color: var(--page-surface);
+  --ifm-navbar-background-color: var(--page-bg);
+  --ifm-footer-background-color: var(--page-bg);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06);
 }
 
-/* Modern hero section */
-.hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  position: relative;
-  overflow: hidden;
+/* —— Base —— */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /*
+   * Only the theme toggle changes these tokens, so the crossfade fires on theme
+   * change and nothing else — component hover transitions keep their own timing.
+   */
+  :root {
+    transition-property: --page-ink, --page-ink-muted, --page-ink-faint,
+      --page-rule, --page-link, --page-bg, --page-surface;
+    transition-duration: 260ms;
+    transition-timing-function: ease;
+  }
 }
 
-[data-theme='dark'] .hero {
-  background: linear-gradient(135deg, #1a1f36 0%, #0d1117 100%);
+body {
+  color: var(--page-ink);
+  background: var(--page-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(138, 180, 248, 0.15) 0%, transparent 50%);
-  pointer-events: none;
+/* Avoid horizontal scroll from long words / fixed chrome */
+.main-wrapper {
+  min-width: 0;
 }
 
-.hero__title {
-  font-size: clamp(2.5rem, 8vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@media (max-width: 996px) {
+  .navbar__title {
+    font-size: 0.95rem;
+    max-width: min(12rem, 42vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
-.hero__subtitle {
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-  font-weight: 400;
-  opacity: 0.9;
-  margin-bottom: 2.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-}
+/* —— Navbar —— */
 
-/* Button styles */
-.button {
-  border-radius: 6px;
-  font-weight: 600;
-  padding: 0.75rem 2rem;
-  transition: all var(--ifm-transition-fast) ease;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.button--primary {
-  background: white;
-  color: #1a73e8;
-}
-
-.button--primary:hover {
-  background: rgba(255, 255, 255, 0.95);
-  color: #1557b0;
-}
-
-.button--secondary {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.button--secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-}
-
-/* Card styles for features */
-.card {
-  height: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  transition: all var(--ifm-transition-slow) ease;
-  background: var(--ifm-card-background-color);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: var(--ifm-color-primary);
-}
-
-/* Navbar enhancements - Glass-morphism overlay */
 .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid var(--page-rule);
+  box-shadow: none;
 }
 
-[data-theme='dark'] .navbar {
-  background: rgba(13, 17, 23, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+.navbar__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--page-ink);
 }
 
-/* Navbar on scroll - more solid */
-.navbar--scrolled {
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+.navbar__link {
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-[data-theme='dark'] .navbar--scrolled {
-  background: rgba(13, 17, 23, 0.7);
-}
-
-/* Increase logo size and fix alignment */
 .navbar__logo {
   display: flex;
   align-items: center;
-  background: transparent;
 }
 
 .navbar__logo img {
-  height: 48px;
+  height: 32px;
   width: auto;
   display: block;
-  background: transparent;
-}
-
-.navbar__items {
-  display: flex;
-  align-items: center;
-}
-
-.navbar__item {
-  display: flex;
-  align-items: center;
 }
 
 @media (max-width: 996px) {
   .navbar__logo img {
-    height: 40px;
+    height: 28px;
   }
 }
 
-/* Clean section spacing */
-.container {
-  max-width: 1200px;
-}
+/* —— Footer —— */
 
-/* Smooth scrolling with snap effect */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Only homepage sections should snap */
-body:has(.hero) {
-  scroll-snap-type: y mandatory;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Compensate for fixed navbar */
-.main-wrapper {
-  padding-top: 60px; /* Height of navbar */
-}
-
-/* Reset for homepage (hero handles its own spacing) */
-.main-wrapper:has(.hero) {
-  padding-top: 0;
-}
-
-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  min-height: 100vh;
-}
-
-/* Group footer with the last section */
 .footer {
-  background-color: #ffffff;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-  padding: 1.5rem 0;
-  scroll-snap-align: none;
-  position: relative;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-theme='dark'] .footer {
-  background-color: #0d1117;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--page-bg);
+  border-top: 1px solid var(--page-rule);
+  padding: 1.25rem 0;
 }
 
 .footer__copyright {
   text-align: center;
-  font-size: 0.875rem;
-  color: var(--ifm-color-emphasis-600);
+  font-size: 0.8125rem;
+  color: var(--page-ink-faint);
+}
+
+/* —— Docs content polish —— */
+
+.container {
+  max-width: 1200px;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
 }

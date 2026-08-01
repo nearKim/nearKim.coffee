@@ -7,9 +7,27 @@ import remarkObsidianCallout from 'remark-obsidian-callout';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+/**
+ * The notes under docs/ are written but not published yet. Flip this to true to
+ * put them back on the site; nothing else needs to change. While it is false the
+ * docs plugin is never registered, so those pages generate no routes and stay out
+ * of the sitemap entirely.
+ */
+const PUBLISH_NOTES = false;
+
+const notesOptions = {
+  sidebarPath: './sidebars.ts',
+  // Authoring scaffold, not content
+  exclude: ['**/template/**'],
+  // Math rendering support
+  remarkPlugins: [remarkMath, remarkObsidianCallout],
+  rehypePlugins: [rehypeKatex],
+  editUrl: 'https://github.com/nearKim/nearkim.coffee/tree/main/docs/',
+};
+
 const config: Config = {
-  title: 'nearKim.coffee',
-  tagline: 'Welcome to my digital space',
+  title: 'In Keun Kim',
+  tagline: 'M.S. Student, Computer Science · Columbia University',
   favicon: 'img/favicon/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -60,16 +78,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          // Math rendering support
-          remarkPlugins: [remarkMath, remarkObsidianCallout],
-          rehypePlugins: [rehypeKatex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/nearKim/nearkim.coffee/tree/main/docs/',
-        },
+        docs: PUBLISH_NOTES ? notesOptions : false,
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -106,27 +115,16 @@ const config: Config = {
     navbar: {
       title: 'In Keun Kim',
       logo: {
-        alt: 'nearKim.coffee Logo',
+        alt: 'In Keun Kim',
         src: 'img/logo/logo-white.png',
         srcDark: 'img/logo/logo-white-line.png',
       },
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Codex',
-        },
-        {
-          href: 'https://github.com/nearKim/nearkim.coffee',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
+      // Empty on purpose: the sidebar already carries CV, GitHub, and the rest.
+      items: [],
     },
     footer: {
       style: 'light',
-      copyright: `Copyright © ${new Date().getFullYear()} nearKim. Built with Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} In Keun Kim`,
     },
     prism: {
       theme: prismThemes.github,
