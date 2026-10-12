@@ -78,7 +78,7 @@ export const teaching = [
   {
     title: 'Research Mentor',
     description:
-      'Mentoring two high school students on a research project. April 2026 to present.',
+      'I mentor two high school students contributing to my research project. April 2026 to present.',
   },
 ];
 export const industry = [
