@@ -4,6 +4,7 @@
 
 export const name = 'In Keun Kim';
 export const title = 'M.S. in Computer Science · May 2027';
+export const specialization = "Advanced Master's Research (AMR)";
 export const affiliation = 'Columbia University';
 export const degree = 'B.S. in Industrial Engineering';
 export const minor = 'Minor in Computer Science';
@@ -23,7 +24,7 @@ export const description =
 
 /** First About sentence ends before the advisor name; the page links `advisorName`. */
 export const bioLead =
-  "I am an M.S. student in Computer Science at Columbia University in the Advanced Master's Research (AMR) specialization, advised by";
+  'I am an M.S. student in Computer Science at Columbia University, advised by';
 
 export const bioInterest =
   'My research focuses on testing and validating AI-generated software changes. I am interested in programming languages, program analysis, and software security.';

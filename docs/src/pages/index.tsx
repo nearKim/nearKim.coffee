@@ -11,6 +11,7 @@ import {CatIcon} from '@phosphor-icons/react/Cat';
 import {
   name,
   title,
+  specialization,
   affiliation,
   degree,
   minor,
@@ -121,6 +122,7 @@ export default function Home(): ReactNode {
 
             <div className={styles.sidebarMeta}>
               <p className={styles.sidebarTitle}>{title}</p>
+              <p className={styles.sidebarAffiliation}>{specialization}</p>
               <p className={styles.sidebarAffiliation}>{affiliation}</p>
               <p className={styles.education}>
                 <span className={styles.degree}>{degree}</span>
