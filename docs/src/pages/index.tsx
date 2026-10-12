@@ -33,6 +33,7 @@ import {
   socialLinks,
   resumeUrl,
   research,
+  teaching,
   industry,
 } from '@site/src/config/content';
 import styles from './index.module.css';
@@ -245,6 +246,22 @@ export default function Home(): ReactNode {
               </ol>
             </section>
 
+
+            <section
+              className={styles.section}
+              aria-labelledby="teaching-heading">
+              <h2 id="teaching-heading" className={styles.sectionTitle}>
+                Teaching and Mentoring
+              </h2>
+              <ul className={styles.workList}>
+                {teaching.map((item) => (
+                  <li key={item.title} className={styles.workItem}>
+                    <h3 className={styles.workTitle}>{item.title}</h3>
+                    <p className={styles.workDescription}>{item.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
             <section
               className={styles.section}

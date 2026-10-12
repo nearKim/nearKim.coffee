@@ -3,7 +3,7 @@
  */
 
 export const name = 'In Keun Kim';
-export const title = 'M.S. in Computer Science · Dec 2026';
+export const title = 'M.S. in Computer Science · May 2027';
 export const affiliation = 'Columbia University';
 export const degree = 'B.S. in Industrial Engineering';
 export const minor = 'Minor in Computer Science';
@@ -19,14 +19,14 @@ export const photoAlt = 'Portrait of In Keun Kim';
  * around 160 characters, and the About copy is longer than that.
  */
 export const description =
-  'M.S. student at Columbia researching trustworthy AI for software engineering with Professor Baishakhi Ray.';
+  'Columbia CS M.S. student researching software testing, program analysis, and software security with Professor Baishakhi Ray.';
 
 /** First About sentence ends before the advisor name; the page links `advisorName`. */
 export const bioLead =
-  'I am an M.S. student in Computer Science at Columbia University, advised by';
+  "I am an M.S. student in Computer Science at Columbia University in the Advanced Master's Research (AMR) specialization, advised by";
 
 export const bioInterest =
-  'I am currently interested in trustworthy AI for software engineering, particularly cybersecurity software agents and methods for validating AI-generated software changes.';
+  'My research focuses on testing and validating AI-generated software changes. I am interested in programming languages, program analysis, and software security.';
 
 /** Career sentence wraps `companyName` / `companyUrl` as a link. */
 export const bioCareerLead =
@@ -67,6 +67,18 @@ export const research = [
     venue: 'arXiv preprint',
     year: 2026,
     links: [{label: 'arXiv', href: 'https://arxiv.org/abs/2604.17180'}],
+  },
+];
+export const teaching = [
+  {
+    title: 'Teaching Assistant',
+    description:
+      'COMS E6998-019: Designing Production Agentic Systems, Columbia University. Fall 2026.',
+  },
+  {
+    title: 'Research Mentor',
+    description:
+      'Mentoring two high school students on a research project. April 2026 to present.',
   },
 ];
 export const industry = [

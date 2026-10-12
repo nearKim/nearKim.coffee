@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 
-export default function Portfolio(): JSX.Element {
+export default function Portfolio(): React.JSX.Element {
   return (
     <Layout title="Portfolio" description="InKeun Kim's Portfolio">
       <div
