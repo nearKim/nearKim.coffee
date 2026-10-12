@@ -121,9 +121,9 @@
 }
 
 .sidebarAffiliation {
-  font-size: calc(0.9rem * var(--type-scale));
+  font-size: calc(0.84rem * var(--type-scale));
   line-height: 1.4;
-  color: var(--page-ink-muted);
+  color: var(--page-ink-faint);
   margin: 0;
 }
 

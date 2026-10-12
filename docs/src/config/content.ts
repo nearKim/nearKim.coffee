@@ -4,7 +4,7 @@
 
 export const name = 'In Keun Kim';
 export const title = 'M.S. in Computer Science · May 2027';
-export const specialization = "Advanced Master's Research (AMR)";
+export const specialization = "Advanced Master's Research (AMR) Specialization";
 export const affiliation = 'Columbia University';
 export const degree = 'B.S. in Industrial Engineering';
 export const minor = 'Minor in Computer Science';
